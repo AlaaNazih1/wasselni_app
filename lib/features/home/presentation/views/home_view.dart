@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wasselni/core/theme/app_colors.dart';
 import 'package:wasselni/features/home/widget/home_banner.dart';
 import 'package:wasselni/features/home/widget/home_categories.dart';
 import 'package:wasselni/features/home/widget/home_greeting.dart';
@@ -13,7 +14,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFDFDFD),
+      backgroundColor: AppColors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -37,7 +38,7 @@ class HomeView extends StatelessWidget {
                     to: 'أسيوط',
                     price: '80 جنيه',
                     status: 'تم التسليم',
-                    statusColor: Color(0xFF20A464),
+                    statusColor: AppColors.orderDone,
                   ),
 
                   SizedBox(height: 12),
@@ -48,7 +49,7 @@ class HomeView extends StatelessWidget {
                     to: 'أسيوط',
                     price: '80 جنيه',
                     status: 'في الطريق',
-                    statusColor: Colors.blue,
+                    statusColor: AppColors.orderInProgress,
                   ),
                 ]),
               ),
