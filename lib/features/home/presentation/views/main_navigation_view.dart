@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wasselni/features/orders/presentation/views/my_orders_view.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import 'home_view.dart';
@@ -15,7 +16,7 @@ class _MainNavigationViewState extends State<MainNavigationView> {
 
   final List<Widget> pages = const [
     HomeView(),
-    Center(child: Text('طلباتي')),
+    MyOrdersView(),
     Center(child: Text('تتبع الطلب')),
     Center(child: Text('حسابي')),
   ];
