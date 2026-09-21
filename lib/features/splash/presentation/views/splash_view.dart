@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:wasselni/core/routes/app_routes.dart';
 
 
 class SplashView extends StatefulWidget {
@@ -17,7 +18,7 @@ class _SplashViewState extends State<SplashView> {
 
     Timer(const Duration(seconds: 3), () {
       if (!mounted) return;
-      // Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, AppRoutes.login);
     });
      
      
@@ -36,14 +37,19 @@ class _SplashViewState extends State<SplashView> {
           Container(color: Colors.black.withValues(alpha: 0.15)),
 
           // Loading Indicator
-          const Center(
-            child: SizedBox(
-              width: 45,
-              height: 45,
-              child: CircularProgressIndicator(
-                strokeWidth: 4,
-                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFFD000)),
-                backgroundColor: Colors.white54,
+          Positioned(
+            bottom: 40,
+            left: 0,
+            right: 0,
+            child: const Center(
+              child: SizedBox(
+                width: 45,
+                height: 45,
+                child: CircularProgressIndicator(
+                  strokeWidth: 4,
+                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFFD000)),
+                  backgroundColor: Colors.white54,
+                ),
               ),
             ),
           ),
