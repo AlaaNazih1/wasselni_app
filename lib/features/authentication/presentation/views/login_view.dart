@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wasselni/core/routes/app_routes.dart';
 import 'package:wasselni/core/widgets/custom_button.dart';
 import 'package:wasselni/core/widgets/custom_text_button.dart';
 import 'package:wasselni/core/widgets/custom_text_form_field.dart';
@@ -37,7 +38,7 @@ class _LoginViewState extends State<LoginView> {
   }
 
   void _createAccount() {
-    // هنضيف Register Screen هنا بعدين.
+    Navigator.pushNamed(context, AppRoutes.register);
   }
 
   @override
