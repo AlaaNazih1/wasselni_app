@@ -3,6 +3,7 @@ import 'package:wasselni/core/routes/app_routes.dart';
 import 'package:wasselni/core/widgets/custom_button.dart';
 import 'package:wasselni/core/widgets/custom_text_button.dart';
 import 'package:wasselni/core/widgets/custom_text_form_field.dart';
+import 'package:wasselni/features/home/presentation/views/main_navigation_view.dart';
 
 import '../../../../core/theme/app_colors.dart';
 
@@ -30,7 +31,11 @@ class _LoginViewState extends State<LoginView> {
 
   void _login() {
     if (_formKey.currentState!.validate()) {
-      // Firebase Authentication هنضيفه هنا بعدين.
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const MainNavigationView()),
+      );
+      
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text('Login successful')));
