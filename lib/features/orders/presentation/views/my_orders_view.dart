@@ -51,6 +51,7 @@ class _MyOrdersViewState extends State<MyOrdersView> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
+          automaticallyImplyLeading: false,
         backgroundColor: AppColors.background,
         elevation: 0,
         centerTitle: true,

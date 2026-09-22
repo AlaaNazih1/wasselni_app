@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wasselni/features/create_order/presentation/views/create_order_view.dart';
 import 'package:wasselni/features/orders/presentation/views/my_orders_view.dart';
 
 import '../../../../core/theme/app_colors.dart';
@@ -17,6 +18,7 @@ class _MainNavigationViewState extends State<MainNavigationView> {
   final List<Widget> pages = const [
     HomeView(),
     MyOrdersView(),
+    CreateOrderView(),
     Center(child: Text('تتبع الطلب')),
     Center(child: Text('حسابي')),
   ];
@@ -63,6 +65,11 @@ class _MainNavigationViewState extends State<MainNavigationView> {
                 icon: Icon(Icons.receipt_long_outlined),
                 activeIcon: Icon(Icons.receipt_long),
                 label: 'طلباتي',
+              ),
+                BottomNavigationBarItem(
+                icon: Icon(Icons.add_circle_outline),
+                activeIcon: Icon(Icons.add_circle),
+                label: 'طلب جديد',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.location_on_outlined),
