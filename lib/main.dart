@@ -1,10 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:wasselni/core/routes/app_routes.dart';
+import 'package:wasselni/firebase_options.dart';
 
 import 'core/theme/app_colors.dart';
 import 'features/splash/presentation/views/splash_view.dart';
 
-void main() {
+Future<void> main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const WasselniApp());
 }
 
