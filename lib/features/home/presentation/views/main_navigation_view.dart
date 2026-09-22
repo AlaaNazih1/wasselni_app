@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wasselni/features/create_order/presentation/views/create_order_view.dart';
+import 'package:wasselni/features/profile/presentation/views/profile_view.dart';
 import 'package:wasselni/features/tracking/presentation/views/tracking_view.dart';
 
 import '../../../../core/theme/app_colors.dart';
@@ -15,13 +16,24 @@ class MainNavigationView extends StatefulWidget {
 class _MainNavigationViewState extends State<MainNavigationView> {
   int currentIndex = 0;
 
-  final List<Widget> pages = const [
-    HomeView(),
-    TrackingView(),
-    CreateOrderView(),
-    
-    Center(child: Text('حسابي')),
-  ];
+  late final List<Widget> pages;
+
+  @override
+  void initState() {
+    super.initState();
+    pages = [
+      HomeView(
+        onShowAllOrders: () {
+          setState(() {
+            currentIndex = 1;
+          });
+        },
+      ),
+     const TrackingView(),
+     const CreateOrderView(),
+    const  ProfileView(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {

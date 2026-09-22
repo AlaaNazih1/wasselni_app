@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:wasselni/core/widgets/custom_text_button.dart';
 
-
 class LatestOrdersHeader extends StatelessWidget {
-  const LatestOrdersHeader({super.key});
+  const LatestOrdersHeader({super.key, required this.onShowAllOrders});
+
+  final VoidCallback onShowAllOrders;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,11 @@ class LatestOrdersHeader extends StatelessWidget {
               'آخر الطلبات',
               style: TextStyle(fontSize: 19, fontWeight: FontWeight.w900),
             ),
-            CustomTextButton(text: 'عرض الكل', onPressed: (){})
+
+            SizedBox(
+              width: 100,
+              child: CustomTextButton(text: 'عرض الكل', onPressed: onShowAllOrders),
+            ),
           ],
         ),
       ),

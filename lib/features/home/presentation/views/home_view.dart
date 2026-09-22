@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wasselni/core/theme/app_colors.dart';
+import 'package:wasselni/features/home/presentation/views/home_drawer.dart';
 import 'package:wasselni/features/home/widget/home_banner.dart';
 import 'package:wasselni/features/home/widget/home_categories.dart';
 import 'package:wasselni/features/home/widget/home_greeting.dart';
@@ -9,12 +10,13 @@ import 'package:wasselni/features/home/widget/order_card.dart';
 
 
 class HomeView extends StatelessWidget {
-  const HomeView({super.key});
-
+  const HomeView({super.key, required this.onShowAllOrders});
+  final VoidCallback onShowAllOrders;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
+      drawer: const HomeDrawer(),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -26,7 +28,9 @@ class HomeView extends StatelessWidget {
 
             const HomeBanner(),
 
-            const LatestOrdersHeader(),
+             LatestOrdersHeader(
+              onShowAllOrders: onShowAllOrders,
+            ),
 
             SliverPadding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),

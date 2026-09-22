@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wasselni/features/profile/presentation/views/notifications_view.dart';
 
 import '../../../../core/theme/app_colors.dart';
 
@@ -13,14 +14,23 @@ class HomeHeader extends StatelessWidget {
         child: Row(
           children: [
             // Menu
-            Container(
-              width: 42,
-              height: 42,
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Icon(Icons.menu, color: AppColors.black),
+           Builder(
+              builder: (context) {
+                return Container(
+                  width: 42,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      Scaffold.of(context).openDrawer();
+                    },
+                    icon: const Icon(Icons.menu, color: AppColors.black),
+                  ),
+                );
+              },
             ),
 
             const SizedBox(width: 12),
@@ -58,11 +68,18 @@ class HomeHeader extends StatelessWidget {
               ),
               child: Stack(
                 children: [
-                  const Center(
-                    child: Icon(
-                      Icons.notifications_none,
+                   Center(
+                    child: IconButton(
+                      icon: Icon(Icons.notifications_none),
                       color: AppColors.black,
-                      size: 25,
+                      onPressed: (){
+                         Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const NotificationsView(),
+                          ),
+                        );
+                      },
                     ),
                   ),
                   Positioned(
