@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wasselni/core/routes/app_routes.dart';
 import 'package:wasselni/core/widgets/custom_button.dart';
 import 'package:wasselni/core/widgets/custom_text_button.dart';
 import 'package:wasselni/core/widgets/custom_text_form_field.dart';
+import 'package:wasselni/features/authentication/presentation/controllers/auth_controller.dart';
 import 'package:wasselni/features/home/presentation/views/main_navigation_view.dart';
 
 import '../../../../core/theme/app_colors.dart';
 
-class LoginView extends StatefulWidget {
+class LoginView extends ConsumerStatefulWidget  {
   const LoginView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  ConsumerState<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _LoginViewState extends ConsumerState<LoginView> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _phoneController = TextEditingController();
@@ -29,17 +31,36 @@ class _LoginViewState extends State<LoginView> {
     super.dispose();
   }
 
-  void _login() {
-    if (_formKey.currentState!.validate()) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const MainNavigationView()),
-      );
-      
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Login successful')));
+  Future<void> _login() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
     }
+
+    await ref
+        .read(authControllerProvider.notifier)
+        .login(
+          phone: _phoneController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+
+    if (!mounted) return;
+
+    final state = ref.read(authControllerProvider);
+
+    state.when(
+      data: (_) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const MainNavigationView()),
+        );
+      },
+      loading: () {},
+      error: (error, _) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(error.toString())));
+      },
+    );
   }
 
   void _createAccount() {

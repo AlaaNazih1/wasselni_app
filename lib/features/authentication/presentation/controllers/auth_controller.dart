@@ -2,6 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:wasselni/features/authentication/data/datasources/user_remote_data_source.dart';
 
 import '../../data/datasources/auth_remote_data_source.dart';
 import '../../data/repositories/auth_repository_impl.dart';
@@ -11,9 +12,14 @@ final authRemoteDataSourceProvider = Provider<AuthRemoteDataSource>((ref) {
   return AuthRemoteDataSource();
 });
 
+final userRemoteDataSourceProvider = Provider<UserRemoteDataSource>((ref) {
+  return UserRemoteDataSource();
+});
+
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return AuthRepositoryImpl(
     remoteDataSource: ref.read(authRemoteDataSourceProvider),
+    userRemoteDataSource: ref.read(userRemoteDataSourceProvider),
   );
 });
 
@@ -30,13 +36,31 @@ class AuthController extends StateNotifier<AsyncValue<void>> {
   final AuthRepository _repository;
 
   Future<void> register({
+    required String name,
+    required String phone,
     required String email,
     required String password,
   }) async {
     state = const AsyncLoading();
 
     try {
-      await _repository.register(email: email, password: password);
+      final userCredential = await _repository.register(
+        email: email,
+        password: password,
+      );
+
+      final user = userCredential.user;
+
+      if (user == null) {
+        throw Exception('Failed to create user');
+      }
+
+      await _repository.createUser(
+        uid: user.uid,
+        name: name,
+        phone: phone,
+        email: email,
+      );
 
       state = const AsyncData(null);
     } on FirebaseAuthException catch (e, stackTrace) {
@@ -46,17 +70,28 @@ class AuthController extends StateNotifier<AsyncValue<void>> {
     }
   }
 
-  Future<void> login({required String email, required String password}) async {
+  Future<void> login({required String phone, required String password}) async {
     state = const AsyncLoading();
 
     try {
+      // 1. Get email using phone number
+      final email = await _repository.getEmailByPhone(phone);
+
+      if (email == null) {
+        throw Exception('رقم الهاتف غير مسجل');
+      }
+
+      // 2. Login using Firebase Auth
       await _repository.login(email: email, password: password);
 
       state = const AsyncData(null);
     } on FirebaseAuthException catch (e, stackTrace) {
       state = AsyncError(_getAuthErrorMessage(e), stackTrace);
     } catch (e, stackTrace) {
-      state = AsyncError(e, stackTrace);
+      state = AsyncError(
+        e.toString().replaceFirst('Exception: ', ''),
+        stackTrace,
+      );
     }
   }
 

@@ -50,7 +50,11 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
 
     FocusScope.of(context).unfocus();
 
-    await ref.read(authControllerProvider.notifier).register(
+    await ref
+        .read(authControllerProvider.notifier)
+        .register(
+          name: _nameController.text.trim(),
+          phone: _phoneController.text.trim(),
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );

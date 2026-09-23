@@ -11,6 +11,15 @@ abstract class AuthRepository {
     required String password,
   });
 
+  Future<void> createUser({
+    required String uid,
+    required String name,
+    required String phone,
+    required String email,
+  });
+
+  Future<String?> getEmailByPhone(String phone);
+
   Future<void> logout();
 
   User? get currentUser;
