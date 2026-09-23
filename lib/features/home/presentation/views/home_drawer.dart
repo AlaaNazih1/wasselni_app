@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
-import '../../../../core/theme/app_colors.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomeDrawer extends StatelessWidget {
+import '../../../../core/theme/app_colors.dart';
+import '../../../profile/presentation/controllers/profile_controller.dart';
+
+class HomeDrawer extends ConsumerWidget {
   const HomeDrawer({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final profileAsync = ref.watch(profileProvider);
+
     return Drawer(
       backgroundColor: AppColors.background,
       width: MediaQuery.of(context).size.width * 0.78,
@@ -13,7 +18,45 @@ class HomeDrawer extends StatelessWidget {
         child: Column(
           children: [
             // User information
-            _buildUserInfo(),
+            profileAsync.when(
+              loading: () => const SizedBox(
+                height: 190,
+                child: Center(
+                  child: CircularProgressIndicator(color: AppColors.primary),
+                ),
+              ),
+              error: (error, stackTrace) => const SizedBox(
+                height: 190,
+                child: Center(
+                  child: Text(
+                    'حدث خطأ في تحميل البيانات',
+                    style: TextStyle(
+                      color: AppColors.error,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+              data: (userData) {
+                if (userData == null) {
+                  return const SizedBox(
+                    height: 190,
+                    child: Center(
+                      child: Text(
+                        'لا توجد بيانات للمستخدم',
+                        style: TextStyle(color: AppColors.grey),
+                      ),
+                    ),
+                  );
+                }
+
+                return _buildUserInfo(
+                  name: userData['name'] ?? '',
+                  phone: userData['phone'] ?? '',
+                  email: userData['email'] ?? '',
+                );
+              },
+            ),
 
             const SizedBox(height: 20),
 
@@ -71,7 +114,11 @@ class HomeDrawer extends StatelessWidget {
     );
   }
 
-  Widget _buildUserInfo() {
+  Widget _buildUserInfo({
+    required String name,
+    required String phone,
+    required String email,
+  }) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 25, 20, 0),
       child: Column(
@@ -91,9 +138,9 @@ class HomeDrawer extends StatelessWidget {
 
           const SizedBox(height: 12),
 
-          const Text(
-            'علاء نزيه',
-            style: TextStyle(
+          Text(
+            name,
+            style: const TextStyle(
               fontSize: 19,
               fontWeight: FontWeight.w900,
               color: AppColors.black,
@@ -102,9 +149,9 @@ class HomeDrawer extends StatelessWidget {
 
           const SizedBox(height: 5),
 
-          const Text(
-            '01000000000',
-            style: TextStyle(
+          Text(
+            phone,
+            style: const TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w600,
               color: AppColors.grey,
@@ -113,9 +160,9 @@ class HomeDrawer extends StatelessWidget {
 
           const SizedBox(height: 3),
 
-          const Text(
-            'alaa@example.com',
-            style: TextStyle(
+          Text(
+            email,
+            style: const TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w500,
               color: AppColors.grey,

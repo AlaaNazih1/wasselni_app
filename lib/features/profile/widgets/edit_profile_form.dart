@@ -1,30 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:wasselni/features/profile/presentation/controllers/profile_controller.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_form_field.dart';
 
-class EditProfileForm extends StatefulWidget {
+class EditProfileForm extends ConsumerStatefulWidget {
   const EditProfileForm({super.key});
 
   @override
-  State<EditProfileForm> createState() => _EditProfileFormState();
+  ConsumerState<EditProfileForm> createState() => _EditProfileFormState();
 }
 
-class _EditProfileFormState extends State<EditProfileForm> {
+class _EditProfileFormState extends ConsumerState<EditProfileForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _nameController = TextEditingController(
-    text: 'علاء نزيه',
-  );
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
-  final TextEditingController _phoneController = TextEditingController(
-    text: '01000000000',
-  );
+  bool _isLoading = true;
+  bool _isSaving = false;
 
-  final TextEditingController _emailController = TextEditingController(
-    text: 'alaa@example.com',
-  );
+  @override
+  void initState() {
+    super.initState();
+
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    final profile = await ref.read(profileProvider.future);
+
+    if (!mounted) return;
+
+    if (profile != null) {
+      _nameController.text = profile['name'] ?? '';
+      _phoneController.text = profile['phone'] ?? '';
+      _emailController.text = profile['email'] ?? '';
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   @override
   void dispose() {
@@ -34,21 +54,67 @@ class _EditProfileFormState extends State<EditProfileForm> {
     super.dispose();
   }
 
-  void _saveChanges() {
+  Future<void> _saveChanges() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('تم حفظ البيانات بنجاح'),
-        backgroundColor: AppColors.success,
-      ),
-    );
+    setState(() {
+      _isSaving = true;
+    });
+
+    try {
+      await ref
+          .read(profileUpdateProvider)
+          .updateProfile(
+            name: _nameController.text.trim(),
+            phone: _phoneController.text.trim(),
+            email: _emailController.text.trim(),
+          );
+
+      // Refresh profile data everywhere
+      ref.invalidate(profileProvider);
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('تم حفظ البيانات بنجاح'),
+          backgroundColor: AppColors.success,
+        ),
+      );
+
+      // Return to Profile
+      Navigator.pop(context);
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString().replaceFirst('Exception: ', '')),
+          backgroundColor: AppColors.error,
+        ),
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isSaving = false;
+        });
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return const Center(
+        child: Padding(
+          padding: EdgeInsets.all(30),
+          child: CircularProgressIndicator(color: AppColors.primary),
+        ),
+      );
+    }
+
     return Form(
       key: _formKey,
       child: Column(
@@ -125,7 +191,10 @@ class _EditProfileFormState extends State<EditProfileForm> {
 
           const SizedBox(height: 28),
 
-          CustomButton(text: 'حفظ التعديلات', onPressed: _saveChanges),
+          CustomButton(
+            text: _isSaving ? 'جاري الحفظ...' : 'حفظ التعديلات',
+            onPressed: _isSaving ? () {} : _saveChanges,
+          ),
         ],
       ),
     );
