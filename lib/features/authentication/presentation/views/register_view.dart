@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:wasselni/features/authentication/presentation/controllers/auth_controller.dart';
+import 'package:wasselni/features/authentication/presentation/views/login_view.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text_button.dart';
 import '../../../../core/widgets/custom_text_form_field.dart';
 
-class RegisterView extends StatefulWidget {
+class RegisterView extends ConsumerStatefulWidget  {
   const RegisterView({super.key});
 
   @override
-  State<RegisterView> createState() => _RegisterViewState();
+  ConsumerState<RegisterView> createState() => _RegisterViewState();
 }
 
-class _RegisterViewState extends State<RegisterView> {
+class _RegisterViewState extends ConsumerState<RegisterView> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _nameController = TextEditingController();
@@ -40,18 +43,44 @@ class _RegisterViewState extends State<RegisterView> {
     super.dispose();
   }
 
-  void _register() {
+   Future<void> _register() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
 
-    // Firebase Authentication هنضيفه هنا لاحقًا.
+    FocusScope.of(context).unfocus();
+
+    await ref.read(authControllerProvider.notifier).register(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+
+    if (!mounted) return;
+
+    final state = ref.read(authControllerProvider);
+
+    if (state.hasError) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(state.error.toString()),
+          backgroundColor: AppColors.error,
+        ),
+      );
+
+      return;
+    }
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Account created successfully')),
+      const SnackBar(
+        content: Text('تم إنشاء الحساب بنجاح'),
+        backgroundColor: AppColors.success,
+      ),
+    );
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const LoginView()),
     );
   }
-
   void _goToLogin() {
     Navigator.pop(context);
   }
