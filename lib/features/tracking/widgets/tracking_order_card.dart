@@ -4,8 +4,9 @@ import 'package:wasselni/features/order_details/presentation/views/order_details
 import '../../../../core/theme/app_colors.dart';
 
 class TrackingOrderCard extends StatelessWidget {
-  const TrackingOrderCard({
+   const TrackingOrderCard({
     super.key,
+    required this.orderId,
     required this.orderNumber,
     required this.status,
     required this.statusColor,
@@ -13,9 +14,9 @@ class TrackingOrderCard extends StatelessWidget {
     required this.to,
     required this.price,
     required this.time,
-   
   });
 
+  final String orderId;
   final String orderNumber;
   final String status;
   final Color statusColor;
@@ -23,7 +24,6 @@ class TrackingOrderCard extends StatelessWidget {
   final String to;
   final String price;
   final String time;
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -31,14 +31,7 @@ class TrackingOrderCard extends StatelessWidget {
            Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => OrderDetailsView(
-              orderNumber: orderNumber,
-              from: from,
-              to: to,
-              price: price,
-              status: status,
-              statusColor: statusColor,
-            ),
+            builder: (context) => OrderDetailsView(orderId: orderId),
           ),
         );
         },

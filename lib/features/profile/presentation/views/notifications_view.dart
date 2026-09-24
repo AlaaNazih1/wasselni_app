@@ -8,8 +8,24 @@ import 'package:wasselni/features/profile/widgets/notifications_header.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../controllers/notification_controller.dart';
 
-class NotificationsView extends ConsumerWidget {
+class NotificationsView extends ConsumerStatefulWidget {
   const NotificationsView({super.key});
+
+  @override
+  ConsumerState<NotificationsView> createState() => _NotificationsViewState();
+}
+
+class _NotificationsViewState extends ConsumerState<NotificationsView> {
+ @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await ref.read(notificationControllerProvider).markAllAsRead();
+
+      ref.invalidate(unreadNotificationsProvider);
+    });
+  }
 
   IconData _getNotificationIcon(String type) {
     switch (type) {
@@ -80,8 +96,8 @@ class NotificationsView extends ConsumerWidget {
     return value.toString();
   }
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
+@override
+  Widget build(BuildContext context) {
     final notificationsAsync = ref.watch(notificationsProvider);
 
     return Scaffold(

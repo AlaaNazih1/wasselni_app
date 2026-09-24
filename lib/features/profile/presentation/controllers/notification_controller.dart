@@ -1,46 +1,77 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../data/datasources/notification_remote_data_source.dart';
-
-final notificationRemoteDataSourceProvider =
-    Provider<NotificationRemoteDataSource>((ref) {
-      return NotificationRemoteDataSource();
-    });
-
-final notificationsProvider = FutureProvider<List<Map<String, dynamic>>>((
-  ref,
-) async {
+final notificationsProvider = StreamProvider<List<Map<String, dynamic>>>((ref) {
   final user = FirebaseAuth.instance.currentUser;
 
   if (user == null) {
-    return [];
+    return Stream.value([]);
   }
 
-  final dataSource = ref.read(notificationRemoteDataSourceProvider);
-
-  return dataSource.getNotifications(user.uid);
+  return FirebaseFirestore.instance
+      .collection('users')
+      .doc(user.uid)
+      .collection('notifications')
+      .orderBy('createdAt', descending: true)
+      .snapshots()
+      .map((snapshot) {
+        return snapshot.docs.map((doc) {
+          return {'id': doc.id, ...doc.data()};
+        }).toList();
+      });
 });
 
 final notificationControllerProvider = Provider<NotificationController>((ref) {
-  return NotificationController(
-    dataSource: ref.read(notificationRemoteDataSourceProvider),
-  );
+  return NotificationController();
 });
+final unreadNotificationsProvider = StreamProvider<int>((ref) {
+  final user = FirebaseAuth.instance.currentUser;
 
+  if (user == null) {
+    return Stream.value(0);
+  }
+
+  return FirebaseFirestore.instance
+      .collection('users')
+      .doc(user.uid)
+      .collection('notifications')
+      .where('isRead', isEqualTo: false)
+      .snapshots()
+      .map((snapshot) => snapshot.docs.length);
+});
 class NotificationController {
-  NotificationController({required NotificationRemoteDataSource dataSource})
-    : _dataSource = dataSource;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  final NotificationRemoteDataSource _dataSource;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<void> markAsRead(String notificationId) async {
-    final user = FirebaseAuth.instance.currentUser;
+ Future<void> markAllAsRead() async {
+    final user = _auth.currentUser;
 
     if (user == null) {
-      throw Exception('المستخدم غير مسجل الدخول');
+      return;
     }
 
-    await _dataSource.markAsRead(uid: user.uid, notificationId: notificationId);
+    final query = await _firestore
+        .collection('users')
+        .doc(user.uid)
+        .collection('notifications')
+        .where('isRead', isEqualTo: false)
+        .get();
+
+    if (query.docs.isEmpty) {
+      return;
+    }
+
+    final batch = _firestore.batch();
+
+    for (final doc in query.docs) {
+      batch.update(doc.reference, {
+        'isRead': true,
+        'readAt': FieldValue.serverTimestamp(),
+      });
+    }
+
+    await batch.commit();
   }
 }

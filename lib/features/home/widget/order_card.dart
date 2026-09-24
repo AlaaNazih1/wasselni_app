@@ -6,6 +6,7 @@ import '../../order_details/presentation/views/order_details_view.dart';
 class OrderCard extends StatelessWidget {
   const OrderCard({
     super.key,
+    required this.orderId,
     required this.orderNumber,
     required this.from,
     required this.to,
@@ -14,6 +15,7 @@ class OrderCard extends StatelessWidget {
     required this.statusColor,
   });
 
+  final String orderId;
   final String orderNumber;
   final String from;
   final String to;
@@ -28,22 +30,18 @@ class OrderCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => OrderDetailsView(
-              orderNumber: orderNumber,
-              from: from,
-              to: to,
-              price: price,
-              status: status,
-              statusColor: statusColor,
-            ),
+            builder: (context) => OrderDetailsView(orderId: orderId),
           ),
         );
       },
+
       child: Container(
         padding: const EdgeInsets.all(14),
+
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(16),
+
           boxShadow: const [
             BoxShadow(
               color: Colors.black12,
@@ -52,10 +50,12 @@ class OrderCard extends StatelessWidget {
             ),
           ],
         ),
+
         child: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
               children: [
                 Text(
                   orderNumber,
@@ -67,10 +67,12 @@ class OrderCard extends StatelessWidget {
                     horizontal: 10,
                     vertical: 5,
                   ),
+
                   decoration: BoxDecoration(
                     color: statusColor.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(20),
                   ),
+
                   child: Text(
                     status,
                     style: TextStyle(

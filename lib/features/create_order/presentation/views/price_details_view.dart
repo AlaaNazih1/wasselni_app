@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 import 'package:wasselni/core/theme/app_colors.dart';
 import 'package:wasselni/core/widgets/custom_button.dart';
 import 'package:wasselni/features/home/presentation/views/main_navigation_view.dart';
 
-class PriceDetailsView extends StatelessWidget {
+class PriceDetailsView extends StatefulWidget {
   const PriceDetailsView({
     super.key,
     required this.from,
@@ -15,23 +18,121 @@ class PriceDetailsView extends StatelessWidget {
   final String from;
   final String to;
   final double distance;
-final int orderType;
+  final int orderType;
+
+  @override
+  State<PriceDetailsView> createState() => _PriceDetailsViewState();
+}
+
+class _PriceDetailsViewState extends State<PriceDetailsView> {
   static const double basePrice = 30;
   static const double pricePerKm = 5;
   static const double additionalFees = 0;
 
+  bool _isLoading = false;
+
   double get deliveryPrice {
-    return basePrice + (pricePerKm * distance);
+    return basePrice + (pricePerKm * widget.distance);
   }
 
   double get totalPrice {
     return deliveryPrice + additionalFees;
   }
 
+  Future<void> _confirmOrder() async {
+    if (_isLoading) return;
+
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('يجب تسجيل الدخول أولاً'),
+          backgroundColor: AppColors.error,
+        ),
+      );
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final ordersRef = FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .collection('orders');
+
+      // إنشاء Document جديد والحصول على الـ ID
+      final orderDoc = ordersRef.doc();
+
+      // رقم الطلب
+      final orderNumber =
+          '#${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}';
+
+      await orderDoc.set({
+        'orderNumber': orderNumber,
+        'userId': user.uid,
+
+        'from': widget.from,
+        'to': widget.to,
+
+        'orderType': widget.orderType,
+
+        'distance': widget.distance,
+
+        'deliveryPrice': deliveryPrice,
+        'additionalFees': additionalFees,
+        'totalPrice': totalPrice,
+
+        // الحالة الأولية للطلب
+        'status': 'تم استلام الطلب',
+
+        'driverName': '',
+        'driverId': '',
+
+        'createdAt': FieldValue.serverTimestamp(),
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('تم تأكيد الطلب بنجاح'),
+          backgroundColor: AppColors.success,
+        ),
+      );
+
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const MainNavigationView()),
+        (route) => false,
+      );
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('حدث خطأ أثناء إنشاء الطلب: $e'),
+          backgroundColor: AppColors.error,
+        ),
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+
       appBar: AppBar(
         title: const Text(
           'تفاصيل السعر',
@@ -42,13 +143,17 @@ final int orderType;
         foregroundColor: AppColors.black,
         elevation: 0,
       ),
+
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+
           children: [
             Container(
               width: double.infinity,
+
               decoration: BoxDecoration(
                 color: AppColors.white,
                 borderRadius: BorderRadius.circular(18),
@@ -60,12 +165,14 @@ final int orderType;
                   ),
                 ],
               ),
+
               child: Column(
                 children: [
                   ClipRRect(
                     borderRadius: const BorderRadius.vertical(
                       top: Radius.circular(18),
                     ),
+
                     child: Image.asset(
                       'assets/images/Motorcycle_artwork-removebg-preview.png',
                       height: 180,
@@ -76,16 +183,17 @@ final int orderType;
 
                   Padding(
                     padding: const EdgeInsets.all(16),
+
                     child: Column(
                       children: [
-                   if (orderType == 0)
+                        if (widget.orderType == 0)
                           _LocationRow(
                             title: 'مكان الاستلام',
-                            location: from,
+                            location: widget.from,
                             icon: Icons.location_on_outlined,
                           ),
 
-                        if (orderType == 0)
+                        if (widget.orderType == 0)
                           const Padding(
                             padding: EdgeInsets.symmetric(vertical: 8),
                             child: Icon(
@@ -96,7 +204,7 @@ final int orderType;
 
                         _LocationRow(
                           title: 'مكان التوصيل',
-                          location: to,
+                          location: widget.to,
                           icon: Icons.location_on_outlined,
                         ),
                       ],
@@ -135,19 +243,8 @@ final int orderType;
             const SizedBox(height: 30),
 
             CustomButton(
-              text: 'تأكيد الطلب',
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('تم تأكيد الطلب بنجاح'),
-                    backgroundColor: AppColors.success,
-                  ),
-                );
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MainNavigationView()),
-                );
-              },
+              text: _isLoading ? 'جاري إنشاء الطلب...' : 'تأكيد الطلب',
+              onPressed: _isLoading ? null : _confirmOrder,
             ),
           ],
         ),
@@ -174,10 +271,12 @@ class _LocationRow extends StatelessWidget {
         Container(
           width: 42,
           height: 42,
+
           decoration: BoxDecoration(
             color: AppColors.primary.withValues(alpha: 0.15),
             shape: BoxShape.circle,
           ),
+
           child: Icon(icon, color: AppColors.black),
         ),
 
@@ -185,12 +284,15 @@ class _LocationRow extends StatelessWidget {
 
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+
           children: [
             Text(
               title,
               style: const TextStyle(color: AppColors.grey, fontSize: 12),
             ),
+
             const SizedBox(height: 3),
+
             Text(
               location,
               style: const TextStyle(
@@ -222,6 +324,7 @@ class _PriceRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
       children: [
         Row(
           children: [
@@ -233,8 +336,10 @@ class _PriceRow extends StatelessWidget {
                 color: AppColors.black,
               ),
             ),
+
             if (subtitle != null) ...[
               const SizedBox(width: 5),
+
               Text(
                 subtitle!,
                 style: const TextStyle(color: AppColors.grey, fontSize: 12),

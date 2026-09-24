@@ -1,9 +1,53 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../core/theme/app_colors.dart';
 
 class OrderTimeline extends StatelessWidget {
-  const OrderTimeline({super.key});
+  const OrderTimeline({
+    super.key,
+    required this.status,
+    this.createdAt,
+    this.inProgressAt,
+    this.deliveredAt,
+  });
+  final String status;
+  final dynamic createdAt;
+  final dynamic inProgressAt;
+  final dynamic deliveredAt;
+  bool get isReceived {
+    return status == 'pending' ||
+        status == 'تم استلام الطلب' ||
+        status == 'inProgress' ||
+        status == 'في الطريق' ||
+        status == 'delivered' ||
+        status == 'تم التسليم';
+  }
+
+  bool get isOnTheWay {
+    return status == 'inProgress' ||
+        status == 'في الطريق' ||
+        status == 'delivered' ||
+        status == 'تم التسليم';
+  }
+
+  bool get isDelivered {
+    return status == 'delivered' || status == 'تم التسليم';
+  }
+
+  String formatTime(dynamic value) {
+    if (value == null || value is! Timestamp) {
+      return '--';
+    }
+    final date = value.toDate();
+    final hour = date.hour == 0
+        ? 12
+        : date.hour > 12
+        ? date.hour - 12
+        : date.hour;
+    final minute = date.minute.toString().padLeft(2, '0');
+    final period = date.hour >= 12 ? 'م' : 'ص';
+    return '$hour:$minute $period';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,30 +71,26 @@ class OrderTimeline extends StatelessWidget {
               color: AppColors.black,
             ),
           ),
-
           const SizedBox(height: 20),
-
           _TimelineItem(
             title: 'تم استلام الطلب',
-            time: '10:15 ص',
+            time: formatTime(createdAt),
             color: AppColors.success,
-            isCompleted: true,
+            isCompleted: isReceived,
             isLast: false,
           ),
-
           _TimelineItem(
             title: 'في الطريق للتسليم',
-            time: '10:35 ص',
+            time: isOnTheWay ? formatTime(inProgressAt) : '--',
             color: Colors.blue,
-            isCompleted: true,
+            isCompleted: isOnTheWay,
             isLast: false,
           ),
-
           _TimelineItem(
             title: 'تم التسليم',
-            time: '--',
-            color: AppColors.grey,
-            isCompleted: false,
+            time: isDelivered ? formatTime(deliveredAt) : '--',
+            color: AppColors.success,
+            isCompleted: isDelivered,
             isLast: true,
           ),
         ],
@@ -67,22 +107,17 @@ class _TimelineItem extends StatelessWidget {
     required this.isCompleted,
     required this.isLast,
   });
-
   final String title;
   final String time;
   final Color color;
   final bool isCompleted;
   final bool isLast;
-
   @override
   Widget build(BuildContext context) {
     return IntrinsicHeight(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // =========================
-          // Timeline
-          // =========================
           SizedBox(
             width: 30,
             child: Column(
@@ -103,7 +138,6 @@ class _TimelineItem extends StatelessWidget {
                         )
                       : null,
                 ),
-
                 if (!isLast)
                   Expanded(
                     child: Container(
@@ -115,12 +149,7 @@ class _TimelineItem extends StatelessWidget {
               ],
             ),
           ),
-
           const SizedBox(width: 10),
-
-          // =========================
-          // Information
-          // =========================
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(bottom: 24),
@@ -137,7 +166,6 @@ class _TimelineItem extends StatelessWidget {
                       color: isCompleted ? AppColors.black : AppColors.grey,
                     ),
                   ),
-
                   Text(
                     time,
                     style: const TextStyle(
