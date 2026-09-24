@@ -1,5 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
+
 import 'package:wasselni/features/profile/presentation/controllers/profile_controller.dart';
 
 import '../../../../core/theme/app_colors.dart';
@@ -14,6 +19,9 @@ class EditProfileForm extends ConsumerStatefulWidget {
 }
 
 class _EditProfileFormState extends ConsumerState<EditProfileForm> {
+  File? _selectedImage;
+  String? _currentImageBase64;
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final TextEditingController _nameController = TextEditingController();
@@ -26,20 +34,27 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
   @override
   void initState() {
     super.initState();
-
     _loadUserData();
   }
 
   Future<void> _loadUserData() async {
-    final profile = await ref.read(profileProvider.future);
+    try {
+      final profile = await ref.read(profileProvider.future);
+
+      if (!mounted) return;
+
+      if (profile != null) {
+        _nameController.text = profile['name'] ?? '';
+        _phoneController.text = profile['phone'] ?? '';
+        _emailController.text = profile['email'] ?? '';
+
+        _currentImageBase64 = profile['profileImageBase64'];
+      }
+    } catch (e) {
+      debugPrint('PROFILE LOAD ERROR: $e');
+    }
 
     if (!mounted) return;
-
-    if (profile != null) {
-      _nameController.text = profile['name'] ?? '';
-      _phoneController.text = profile['phone'] ?? '';
-      _emailController.text = profile['email'] ?? '';
-    }
 
     setState(() {
       _isLoading = false;
@@ -54,6 +69,36 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
     super.dispose();
   }
 
+  Future<void> _pickImage() async {
+    try {
+      final picker = ImagePicker();
+
+      final image = await picker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 50,
+        maxWidth: 500,
+        maxHeight: 500,
+      );
+
+      if (image == null) {
+        return;
+      }
+
+      setState(() {
+        _selectedImage = File(image.path);
+      });
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('حدث خطأ أثناء اختيار الصورة: $e'),
+          backgroundColor: AppColors.error,
+        ),
+      );
+    }
+  }
+
   Future<void> _saveChanges() async {
     if (!_formKey.currentState!.validate()) {
       return;
@@ -64,15 +109,21 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
     });
 
     try {
-      await ref
-          .read(profileUpdateProvider)
-          .updateProfile(
-            name: _nameController.text.trim(),
-            phone: _phoneController.text.trim(),
-            email: _emailController.text.trim(),
-          );
+      final controller = ref.read(profileUpdateProvider);
 
-      // Refresh profile data everywhere
+      // حفظ البيانات الشخصية
+      await controller.updateProfile(
+        name: _nameController.text.trim(),
+        phone: _phoneController.text.trim(),
+        email: _emailController.text.trim(),
+      );
+
+      // حفظ الصورة لو المستخدم اختار صورة جديدة
+      if (_selectedImage != null) {
+        await controller.updateProfileImage(_selectedImage!);
+      }
+
+      // تحديث البيانات
       ref.invalidate(profileProvider);
 
       if (!mounted) return;
@@ -84,7 +135,6 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
         ),
       );
 
-      // Return to Profile
       Navigator.pop(context);
     } catch (e) {
       if (!mounted) return;
@@ -104,6 +154,24 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
     }
   }
 
+  ImageProvider? _getProfileImage() {
+    // الصورة الجديدة التي اختارها المستخدم
+    if (_selectedImage != null) {
+      return FileImage(_selectedImage!);
+    }
+
+    // الصورة المحفوظة في Firestore
+    if (_currentImageBase64 != null && _currentImageBase64!.isNotEmpty) {
+      try {
+        return MemoryImage(base64Decode(_currentImageBase64!));
+      } catch (e) {
+        debugPrint('IMAGE DECODE ERROR: $e');
+      }
+    }
+
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
@@ -115,11 +183,54 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
       );
     }
 
+    final profileImage = _getProfileImage();
+
     return Form(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          Center(
+            child: GestureDetector(
+              onTap: _pickImage,
+              child: Stack(
+                children: [
+                  CircleAvatar(
+                    radius: 55,
+                    backgroundColor: AppColors.primary.withValues(alpha: 0.1),
+                    backgroundImage: profileImage,
+                    child: profileImage == null
+                        ? const Icon(
+                            Icons.person,
+                            size: 55,
+                            color: AppColors.primary,
+                          )
+                        : null,
+                  ),
+
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: const BoxDecoration(
+                        color: AppColors.primary,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.camera_alt,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 25),
+
           const Text(
             'البيانات الشخصية',
             textAlign: TextAlign.right,

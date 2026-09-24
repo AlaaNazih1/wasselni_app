@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wasselni/core/utils/logout_helper.dart';
 import 'package:wasselni/features/profile/presentation/views/addresses_view.dart';
 import 'package:wasselni/features/profile/presentation/views/edit_profile_view.dart';
 import 'package:wasselni/features/profile/presentation/views/help_view.dart';
@@ -115,7 +116,9 @@ class ProfileView extends StatelessWidget {
                     title: 'تسجيل الخروج',
                     iconColor: AppColors.error,
                     titleColor: AppColors.error,
-                    onTap: () {},
+                    onTap: () {
+                      LogoutHelper.showLogoutDialog(context);
+                    },
                   ),
                 ]),
               ),
@@ -125,4 +128,5 @@ class ProfileView extends StatelessWidget {
       ),
     );
   }
+  
 }

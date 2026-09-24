@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wasselni/features/profile/presentation/controllers/profile_controller.dart';
@@ -63,25 +65,35 @@ class ProfileInfoCard extends ConsumerWidget {
           final phone = userData['phone'] ?? '';
           final email = userData['email'] ?? '';
 
+          final profileImageBase64 = userData['profileImageBase64'] as String?;
+
+          final hasProfileImage =
+              profileImageBase64 != null && profileImageBase64.isNotEmpty;
+
           return Column(
             children: [
-              // Profile Image
               CircleAvatar(
                 radius: 42,
-                backgroundColor: AppColors.primary,
-                child: ClipOval(
-                  child: Image.asset(
-                    'assets/images/wasselni_logo-removebg-preview.png',
-                    width: 84,
-                    height: 84,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                backgroundColor: AppColors.primary.withValues(alpha: 0.1),
+
+                backgroundImage: hasProfileImage
+                    ? MemoryImage(base64Decode(profileImageBase64))
+                    : null,
+
+                child: !hasProfileImage
+                    ? ClipOval(
+                        child: Image.asset(
+                          'assets/images/wasselni_logo-removebg-preview.png',
+                          width: 84,
+                          height: 84,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                    : null,
               ),
 
               const SizedBox(height: 12),
 
-              // Name
               Text(
                 name,
                 style: const TextStyle(
@@ -93,7 +105,6 @@ class ProfileInfoCard extends ConsumerWidget {
 
               const SizedBox(height: 5),
 
-              // Phone
               Text(
                 phone,
                 style: const TextStyle(
@@ -105,7 +116,6 @@ class ProfileInfoCard extends ConsumerWidget {
 
               const SizedBox(height: 3),
 
-              // Email
               Text(
                 email,
                 style: const TextStyle(

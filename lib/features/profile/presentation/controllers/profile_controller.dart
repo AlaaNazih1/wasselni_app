@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -51,7 +53,16 @@ class ProfileUpdateController {
       email: email,
     );
 
-    // Update Firebase Authentication display name
     await user.updateDisplayName(name);
+  }
+
+  Future<void> updateProfileImage(File image) async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      throw Exception('المستخدم غير مسجل الدخول');
+    }
+
+    await _dataSource.updateProfileImage(uid: user.uid, image: image);
   }
 }

@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:wasselni/core/utils/logout_helper.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../profile/presentation/controllers/profile_controller.dart';
@@ -17,7 +20,6 @@ class HomeDrawer extends ConsumerWidget {
       child: SafeArea(
         child: Column(
           children: [
-            // User information
             profileAsync.when(
               loading: () => const SizedBox(
                 height: 190,
@@ -25,6 +27,7 @@ class HomeDrawer extends ConsumerWidget {
                   child: CircularProgressIndicator(color: AppColors.primary),
                 ),
               ),
+
               error: (error, stackTrace) => const SizedBox(
                 height: 190,
                 child: Center(
@@ -37,6 +40,7 @@ class HomeDrawer extends ConsumerWidget {
                   ),
                 ),
               ),
+
               data: (userData) {
                 if (userData == null) {
                   return const SizedBox(
@@ -54,6 +58,7 @@ class HomeDrawer extends ConsumerWidget {
                   name: userData['name'] ?? '',
                   phone: userData['phone'] ?? '',
                   email: userData['email'] ?? '',
+                  profileImageBase64: userData['profileImageBase64'],
                 );
               },
             ),
@@ -69,7 +74,6 @@ class HomeDrawer extends ConsumerWidget {
 
             const SizedBox(height: 12),
 
-            // Navigation items
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -105,6 +109,14 @@ class HomeDrawer extends ConsumerWidget {
                       Navigator.pop(context);
                     },
                   ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                    child: _DrawerItem(
+                      icon: Icons.logout,
+                      title: 'تسجيل الخروج',
+                      onTap: () => LogoutHelper.showLogoutDialog(context),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -118,22 +130,37 @@ class HomeDrawer extends ConsumerWidget {
     required String name,
     required String phone,
     required String email,
+    required dynamic profileImageBase64,
   }) {
+    ImageProvider? profileImage;
+
+    if (profileImageBase64 != null &&
+        profileImageBase64.toString().isNotEmpty) {
+      try {
+        profileImage = MemoryImage(base64Decode(profileImageBase64.toString()));
+      } catch (e) {
+        debugPrint('DRAWER IMAGE DECODE ERROR: $e');
+      }
+    }
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 25, 20, 0),
       child: Column(
         children: [
           CircleAvatar(
             radius: 42,
-            backgroundColor: AppColors.primary,
-            child: ClipOval(
-              child: Image.asset(
-                'assets/images/wasselni_logo-removebg-preview.png',
-                width: 84,
-                height: 84,
-                fit: BoxFit.cover,
-              ),
-            ),
+            backgroundColor: AppColors.primary.withValues(alpha: 0.1),
+            backgroundImage: profileImage,
+            child: profileImage == null
+                ? ClipOval(
+                    child: Image.asset(
+                      'assets/images/wasselni_logo-removebg-preview.png',
+                      width: 84,
+                      height: 84,
+                      fit: BoxFit.cover,
+                    ),
+                  )
+                : null,
           ),
 
           const SizedBox(height: 12),
