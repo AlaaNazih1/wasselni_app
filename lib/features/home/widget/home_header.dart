@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wasselni/features/profile/presentation/controllers/notification_controller.dart';
-
 import 'package:wasselni/features/profile/presentation/views/notifications_view.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 import '../../../../core/theme/app_colors.dart';
 
@@ -12,6 +12,7 @@ class HomeHeader extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final unreadCount = ref.watch(unreadNotificationsProvider);
+    final l10n = AppLocalizations.of(context);
 
     return SliverToBoxAdapter(
       child: Padding(
@@ -29,6 +30,7 @@ class HomeHeader extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: IconButton(
+                    tooltip: l10n.menu,
                     onPressed: () {
                       Scaffold.of(context).openDrawer();
                     },
@@ -77,6 +79,7 @@ class HomeHeader extends ConsumerWidget {
                 children: [
                   Center(
                     child: IconButton(
+                      tooltip: l10n.notifications,
                       icon: const Icon(
                         Icons.notifications_none,
                         color: AppColors.black,
@@ -92,8 +95,8 @@ class HomeHeader extends ConsumerWidget {
                     ),
                   ),
 
-                  // 🔴 New notification indicator
-               unreadCount.when(
+                  // New notification indicator
+                  unreadCount.when(
                     loading: () => const SizedBox.shrink(),
 
                     error: (_, __) => const SizedBox.shrink(),

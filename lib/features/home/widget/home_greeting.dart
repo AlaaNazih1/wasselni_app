@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wasselni/features/profile/presentation/controllers/profile_controller.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 import '../../../../core/theme/app_colors.dart';
 
@@ -10,6 +11,7 @@ class HomeGreeting extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final profileAsync = ref.watch(profileProvider);
+    final l10n = AppLocalizations.of(context);
 
     return SliverToBoxAdapter(
       child: Padding(
@@ -17,9 +19,9 @@ class HomeGreeting extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            const Text(
-              'أهلاً بك ',
-              style: TextStyle(fontSize: 15, color: AppColors.grey),
+            Text(
+              l10n.welcome,
+              style: const TextStyle(fontSize: 15, color: AppColors.grey),
             ),
 
             profileAsync.when(
@@ -57,11 +59,11 @@ class HomeGreeting extends ConsumerWidget {
 
             const SizedBox(height: 4),
 
-            const Align(
+            Align(
               alignment: Alignment.topCenter,
               child: Text(
-                'اطلب اللي محتاجه بسهولة',
-                style: TextStyle(
+                l10n.orderWhatYouNeed,
+                style: const TextStyle(
                   fontSize: 23,
                   fontWeight: FontWeight.w900,
                   color: AppColors.black,

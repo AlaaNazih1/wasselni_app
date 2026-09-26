@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:wasselni/core/localization/language_controller.dart';
 import 'package:wasselni/features/profile/widgets/language_header.dart';
 import 'package:wasselni/features/profile/widgets/language_option.dart';
 
 import '../../../../core/theme/app_colors.dart';
 
-class LanguageView extends StatefulWidget {
+class LanguageView extends ConsumerWidget {
   const LanguageView({super.key});
 
   @override
-  State<LanguageView> createState() => _LanguageViewState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentLocale = ref.watch(languageProvider);
 
-class _LanguageViewState extends State<LanguageView> {
-  String selectedLanguage = 'العربية';
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -42,22 +39,18 @@ class _LanguageViewState extends State<LanguageView> {
                   LanguageOption(
                     title: 'العربية',
                     subtitle: 'العربية',
-                    isSelected: selectedLanguage == 'العربية',
+                    isSelected: currentLocale.languageCode == 'ar',
                     onTap: () {
-                      setState(() {
-                        selectedLanguage = 'العربية';
-                      });
+                      ref.read(languageProvider.notifier).changeLanguage('ar');
                     },
                   ),
 
                   LanguageOption(
                     title: 'English',
                     subtitle: 'English',
-                    isSelected: selectedLanguage == 'English',
+                    isSelected: currentLocale.languageCode == 'en',
                     onTap: () {
-                      setState(() {
-                        selectedLanguage = 'English';
-                      });
+                      ref.read(languageProvider.notifier).changeLanguage('en');
                     },
                   ),
                 ]),

@@ -1,0 +1,101 @@
+
+{
+  "@@locale": "en",
+  "home": "Home",
+  "@home": {
+    "description": "Label for the home screen"
+  },
+  "myOrders": "My Orders",
+  "@myOrders": {
+    "description": "Label for the user's orders screen"
+  },
+  "newOrder": "New Order",
+  "@newOrder": {
+    "description": "Label for creating a new order"
+  },
+  "profile": "Profile",
+  "@profile": {
+    "description": "Label for the user's profile screen"
+  },
+  "chooseLanguage": "Choose Language",
+  "@chooseLanguage": {
+    "description": "Label for selecting the app language"
+  },
+  "arabic": "Arabic",
+  "@arabic": {
+    "description": "Label for the Arabic language"
+  },
+  "english": "English",
+  "@english": {
+    "description": "Label for the English language"
+  },
+  "notifications": "Notifications",
+  "@notifications": {
+    "description": "Label for notifications"
+  },
+  "trackOrder": "Track Order",
+  "@trackOrder": {
+    "description": "Label for tracking an order"
+  },
+  "logout": "Logout",
+  "@logout": {
+    "description": "Label for logging out of the app"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Label for canceling an action"
+  },
+  "confirm": "Confirm",
+  "@confirm": {
+    "description": "Label for confirming an action"
+  },
+  "profileLoadError": "An error occurred while loading data",
+  "@profileLoadError": {
+    "description": "Profile data loading error"
+  },
+  "noUserData": "No user data available",
+  "@noUserData": {
+    "description": "Message shown when user data is unavailable"
+  },
+  "ordersLoadError": "An error occurred while loading orders",
+  "@ordersLoadError": {
+    "description": "Orders loading error"
+  },
+  "noOrdersYet": "No orders yet",
+  "@noOrdersYet": {
+    "description": "Message shown when there are no orders"
+  },
+  "delivered": "Delivered",
+  "@delivered": {
+    "description": "Delivered order status"
+  },
+  "onTheWay": "On the way",
+  "@onTheWay": {
+    "description": "Order is on the way status"
+  },
+  "cancelled": "Cancelled",
+  "@cancelled": {
+    "description": "Cancelled order status"
+  },
+  "orderReceived": "Order received",
+  "@orderReceived": {
+    "description": "Order received status"
+  },
+  "currency": "EGP",
+  "@currency": {
+    "description": "Currency name"
+  },
+  "menu": "Menu",
+  "@menu": {
+    "description": "Menu label"
+  },
+  "welcome": "Welcome",
+  "@welcome": {
+    "description": "Welcome message"
+  },
+  "orderWhatYouNeed": "Order what you need easily",
+  "@orderWhatYouNeed": {
+    "description": "Prompt encouraging users to order what they need"
+  }
+}
+

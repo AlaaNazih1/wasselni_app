@@ -10,6 +10,7 @@ import 'package:wasselni/features/home/widget/home_greeting.dart';
 import 'package:wasselni/features/home/widget/home_header.dart';
 import 'package:wasselni/features/home/widget/latest_orders_header.dart';
 import 'package:wasselni/features/home/widget/order_card.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key, required this.onShowAllOrders});
@@ -32,7 +33,7 @@ class HomeView extends StatelessWidget {
         .snapshots();
   }
 
-  Color getStatusColor(String status) {
+Color getStatusColor(String status) {
     switch (status) {
       case 'تم التسليم':
         return AppColors.orderDone;
@@ -51,39 +52,44 @@ class HomeView extends StatelessWidget {
     }
   }
 
-  String getStatusText(String status) {
+  String getStatusText(BuildContext context, String status) {
+    final l10n = AppLocalizations.of(context);
+
     switch (status) {
       case 'تم التسليم':
-        return 'تم التسليم';
+        return l10n.delivered;
 
       case 'في الطريق':
-        return 'في الطريق';
+        return l10n.onTheWay;
 
       case 'ملغي':
-        return 'ملغي';
+        return l10n.cancelled;
 
       case 'تم استلام الطلب':
-        return 'تم استلام الطلب';
+        return l10n.orderReceived;
 
       default:
         return status;
     }
   }
 
-  String formatPrice(dynamic price) {
+  String formatPrice(BuildContext context, dynamic price) {
+    final l10n = AppLocalizations.of(context);
+
     if (price == null) {
-      return '0 جنيه';
+      return '0 ${l10n.currency}';
     }
 
     if (price is num) {
-      return '${price.toStringAsFixed(0)} جنيه';
+      return '${price.toStringAsFixed(0)} ${l10n.currency}';
     }
 
-    return '$price جنيه';
+    return '$price ${l10n.currency}';
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: AppColors.white,
 
@@ -139,12 +145,12 @@ class HomeView extends StatelessWidget {
                 final orders = snapshot.data?.docs ?? [];
 
                 if (orders.isEmpty) {
-                  return const SliverToBoxAdapter(
+                  return  SliverToBoxAdapter(
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(16, 20, 16, 24),
                       child: Center(
                         child: Text(
-                          'لا توجد طلبات حتى الآن',
+                       l10n.noOrdersYet,
                           style: TextStyle(
                             fontSize: 15,
                             color: AppColors.grey,
@@ -181,9 +187,9 @@ class HomeView extends StatelessWidget {
 
                           to: order['to'] ?? '',
 
-                          price: formatPrice(order['totalPrice'] ?? order['price'] ?? 0),
+                          price: formatPrice(context, order['totalPrice'] ?? order['price'] ?? 0),
 
-                          status: getStatusText(status),
+                          status: getStatusText(context, status),
 
                           statusColor: getStatusColor(status),
                         ),

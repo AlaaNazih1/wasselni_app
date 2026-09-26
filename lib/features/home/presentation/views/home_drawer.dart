@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wasselni/core/utils/logout_helper.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../profile/presentation/controllers/profile_controller.dart';
@@ -13,6 +14,7 @@ class HomeDrawer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final profileAsync = ref.watch(profileProvider);
+    final l10n = AppLocalizations.of(context);
 
     return Drawer(
       backgroundColor: AppColors.background,
@@ -28,12 +30,12 @@ class HomeDrawer extends ConsumerWidget {
                 ),
               ),
 
-              error: (error, stackTrace) => const SizedBox(
+              error: (error, stackTrace) => SizedBox(
                 height: 190,
                 child: Center(
                   child: Text(
-                    'حدث خطأ في تحميل البيانات',
-                    style: TextStyle(
+                    l10n.profileLoadError,
+                    style: const TextStyle(
                       color: AppColors.error,
                       fontWeight: FontWeight.w600,
                     ),
@@ -43,12 +45,12 @@ class HomeDrawer extends ConsumerWidget {
 
               data: (userData) {
                 if (userData == null) {
-                  return const SizedBox(
+                  return SizedBox(
                     height: 190,
                     child: Center(
                       child: Text(
-                        'لا توجد بيانات للمستخدم',
-                        style: TextStyle(color: AppColors.grey),
+                        l10n.noUserData,
+                        style: const TextStyle(color: AppColors.grey),
                       ),
                     ),
                   );
@@ -80,7 +82,7 @@ class HomeDrawer extends ConsumerWidget {
                 children: [
                   _DrawerItem(
                     icon: Icons.person_outline,
-                    title: 'حسابي',
+                    title: l10n.profile,
                     onTap: () {
                       Navigator.pop(context);
                     },
@@ -88,7 +90,7 @@ class HomeDrawer extends ConsumerWidget {
 
                   _DrawerItem(
                     icon: Icons.receipt_long_outlined,
-                    title: 'طلباتي',
+                    title: l10n.myOrders,
                     onTap: () {
                       Navigator.pop(context);
                     },
@@ -96,7 +98,7 @@ class HomeDrawer extends ConsumerWidget {
 
                   _DrawerItem(
                     icon: Icons.location_on_outlined,
-                    title: 'تتبع الطلب',
+                    title: l10n.trackOrder,
                     onTap: () {
                       Navigator.pop(context);
                     },
@@ -104,17 +106,20 @@ class HomeDrawer extends ConsumerWidget {
 
                   _DrawerItem(
                     icon: Icons.notifications_none,
-                    title: 'الإشعارات',
+                    title: l10n.notifications,
                     onTap: () {
                       Navigator.pop(context);
                     },
                   ),
+
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                     child: _DrawerItem(
                       icon: Icons.logout,
-                      title: 'تسجيل الخروج',
-                      onTap: () => LogoutHelper.showLogoutDialog(context),
+                      title: l10n.logout,
+                      onTap: () {
+                        LogoutHelper.showLogoutDialog(context);
+                      },
                     ),
                   ),
                 ],
