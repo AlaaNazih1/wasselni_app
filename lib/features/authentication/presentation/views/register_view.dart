@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wasselni/features/authentication/presentation/controllers/auth_controller.dart';
 import 'package:wasselni/features/authentication/presentation/views/login_view.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/custom_button.dart';
@@ -91,6 +92,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: AppColors.background,
 
@@ -115,8 +117,8 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                 const SizedBox(height: 25),
 
                 // Title
-                const Text(
-                  'إنشاء حساب',
+                 Text(
+                 l10n.createAccount,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 28,
@@ -127,8 +129,8 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
 
                 const SizedBox(height: 6),
 
-                const Text(
-                  'انضم إلى Wasselni',
+                 Text(
+                  l10n.joinWasselni,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 15,
@@ -140,8 +142,8 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                 const SizedBox(height: 35),
 
                 // Name
-                const Text(
-                  'الاسم بالكامل',
+                 Text(
+                  l10n.fullName,
                   textAlign: TextAlign.right,
                   style: TextStyle(
                     fontSize: 15,
@@ -154,7 +156,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
 
                 CustomTextFormField(
                   controller: _nameController,
-                  hintText: 'أدخل اسمك',
+                  hintText: l10n.enterYourName,
                   textDirection: TextDirection.rtl,
                   prefixIcon: const Icon(
                     Icons.person_outline,
@@ -162,11 +164,11 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                   ),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'من فضلك أدخل اسمك';
+                      return l10n.enterYourName;
                     }
 
                     if (value.trim().length < 3) {
-                      return 'الاسم يجب أن يكون 3 أحرف على الأقل';
+                      return l10n.nameMinLength;
                     }
 
                     return null;
@@ -176,8 +178,8 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                 const SizedBox(height: 20),
 
                 // Phone
-                const Text(
-                  'رقم الهاتف',
+                 Text(
+                  l10n.phoneNumber,
                   textAlign: TextAlign.right,
                   style: TextStyle(
                     fontSize: 15,
@@ -190,7 +192,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
 
                 CustomTextFormField(
                   controller: _phoneController,
-                  hintText: '01XXXXXXXXX',
+                  hintText: l10n.hintPhoneNumber,
                   keyboardType: TextInputType.phone,
                   textDirection: TextDirection.ltr,
                   prefixIcon: const Icon(
@@ -199,15 +201,15 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                   ),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'من فضلك أدخل رقم الهاتف';
+                      return l10n.pleaseEnterPhone;
                     }
 
                     if (value.length != 11) {
-                      return 'رقم الهاتف يجب أن يكون 11 رقم';
+                      return l10n.phoneMustBe11;
                     }
 
                     if (!value.startsWith('01')) {
-                      return 'رقم الهاتف غير صحيح';
+                      return l10n.invalidPhone;
                     }
 
                     return null;
@@ -217,8 +219,8 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                 const SizedBox(height: 20),
 
                 // Email
-                const Text(
-                  'البريد الإلكتروني',
+                 Text(
+                  l10n.email,
                   textAlign: TextAlign.right,
                   style: TextStyle(
                     fontSize: 15,
@@ -240,13 +242,13 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                   ),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'من فضلك أدخل البريد الإلكتروني';
+                      return l10n.pleaseEnterEmail;
                     }
 
                     final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
 
                     if (!emailRegex.hasMatch(value.trim())) {
-                      return 'البريد الإلكتروني غير صحيح';
+                      return l10n.invalidEmail;
                     }
 
                     return null;
@@ -256,8 +258,8 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                 const SizedBox(height: 20),
 
                 // Password
-                const Text(
-                  'كلمة المرور',
+                 Text(
+                  l10n.password,
                   textAlign: TextAlign.right,
                   style: TextStyle(
                     fontSize: 15,
@@ -292,11 +294,11 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'من فضلك أدخل كلمة المرور';
+                      return l10n.pleaseEnterPassword;
                     }
 
                     if (value.length < 6) {
-                      return 'كلمة المرور يجب أن تكون 6 أحرف على الأقل';
+                      return l10n.passwordMinLength;
                     }
 
                     return null;
@@ -306,8 +308,8 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                 const SizedBox(height: 20),
 
                 // Confirm Password
-                const Text(
-                  'تأكيد كلمة المرور',
+                 Text(
+                  l10n.confirmPassword,
                   textAlign: TextAlign.right,
                   style: TextStyle(
                     fontSize: 15,
@@ -342,11 +344,11 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'من فضلك أكد كلمة المرور';
+                      return l10n.pleaseConfirmPassword;
                     }
 
                     if (value != _passwordController.text) {
-                      return 'كلمتا المرور غير متطابقتين';
+                      return l10n.passwordsDoNotMatch;
                     }
 
                     return null;
@@ -356,13 +358,13 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                 const SizedBox(height: 30),
 
                 // Register Button
-                CustomButton(text: 'إنشاء الحساب', onPressed: _register),
+                CustomButton(text: l10n.register, onPressed: _register),
 
                 const SizedBox(height: 15),
 
                 // Login Button
                 CustomTextButton(
-                  text: 'لديك حساب بالفعل؟ تسجيل الدخول',
+                  text: l10n.alreadyHaveAccount,
                   onPressed: _goToLogin,
                 ),
 

@@ -433,6 +433,192 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'من فضلك أدخل'**
   String get pleaseEnter;
+
+  /// Welcome message prefix
+  ///
+  /// In ar, this message translates to:
+  /// **'مرحباً بك في'**
+  String get welcomeTo;
+
+  /// Phone number label
+  ///
+  /// In ar, this message translates to:
+  /// **'رقم الهاتف'**
+  String get phoneNumber;
+
+  /// Phone number input prompt
+  ///
+  /// In ar, this message translates to:
+  /// **'من فضلك أدخل رقم الهاتف'**
+  String get enterPhoneNumber;
+
+  /// Phone number validation message
+  ///
+  /// In ar, this message translates to:
+  /// **'رقم الهاتف يجب أن يكون 11 رقم'**
+  String get phoneNumberMustBe11Digits;
+
+  /// Password label
+  ///
+  /// In ar, this message translates to:
+  /// **'كلمة المرور'**
+  String get password;
+
+  /// Password input prompt
+  ///
+  /// In ar, this message translates to:
+  /// **'من فضلك أدخل كلمة المرور'**
+  String get enterPassword;
+
+  /// Password validation message
+  ///
+  /// In ar, this message translates to:
+  /// **'كلمة المرور يجب أن تكون 6 أحرف على الأقل'**
+  String get passwordMustBe6Characters;
+
+  /// Log in action
+  ///
+  /// In ar, this message translates to:
+  /// **'تسجيل الدخول'**
+  String get login;
+
+  /// Create account action
+  ///
+  /// In ar, this message translates to:
+  /// **'إنشاء حساب جديد'**
+  String get createNewAccount;
+
+  /// Create account heading
+  ///
+  /// In ar, this message translates to:
+  /// **'إنشاء حساب'**
+  String get createAccount;
+
+  /// Join Wasselni message
+  ///
+  /// In ar, this message translates to:
+  /// **'انضم إلى Wasselni'**
+  String get joinWasselni;
+
+  /// Full name label
+  ///
+  /// In ar, this message translates to:
+  /// **'الاسم بالكامل'**
+  String get fullName;
+
+  /// Name input hint
+  ///
+  /// In ar, this message translates to:
+  /// **'أدخل اسمك'**
+  String get enterYourName;
+
+  /// Name required validation message
+  ///
+  /// In ar, this message translates to:
+  /// **'من فضلك أدخل اسمك'**
+  String get pleaseEnterYourName;
+
+  /// Name minimum length validation message
+  ///
+  /// In ar, this message translates to:
+  /// **'الاسم يجب أن يكون 3 أحرف على الأقل'**
+  String get nameMinLength;
+
+  /// Phone number required validation message
+  ///
+  /// In ar, this message translates to:
+  /// **'من فضلك أدخل رقم الهاتف'**
+  String get pleaseEnterPhone;
+
+  /// Phone number length validation message
+  ///
+  /// In ar, this message translates to:
+  /// **'رقم الهاتف يجب أن يكون 11 رقم'**
+  String get phoneMustBe11;
+
+  /// Invalid phone number validation message
+  ///
+  /// In ar, this message translates to:
+  /// **'رقم الهاتف غير صحيح'**
+  String get invalidPhone;
+
+  /// Email address label
+  ///
+  /// In ar, this message translates to:
+  /// **'البريد الإلكتروني'**
+  String get email;
+
+  /// Email input hint
+  ///
+  /// In ar, this message translates to:
+  /// **'example@email.com'**
+  String get enterEmail;
+
+  /// Email required validation message
+  ///
+  /// In ar, this message translates to:
+  /// **'من فضلك أدخل البريد الإلكتروني'**
+  String get pleaseEnterEmail;
+
+  /// Invalid email validation message
+  ///
+  /// In ar, this message translates to:
+  /// **'البريد الإلكتروني غير صحيح'**
+  String get invalidEmail;
+
+  /// Password required validation message
+  ///
+  /// In ar, this message translates to:
+  /// **'من فضلك أدخل كلمة المرور'**
+  String get pleaseEnterPassword;
+
+  /// Password minimum length validation message
+  ///
+  /// In ar, this message translates to:
+  /// **'كلمة المرور يجب أن تكون 6 أحرف على الأقل'**
+  String get passwordMinLength;
+
+  /// Confirm password label
+  ///
+  /// In ar, this message translates to:
+  /// **'تأكيد كلمة المرور'**
+  String get confirmPassword;
+
+  /// Confirm password validation message
+  ///
+  /// In ar, this message translates to:
+  /// **'من فضلك أكد كلمة المرور'**
+  String get pleaseConfirmPassword;
+
+  /// Password mismatch validation message
+  ///
+  /// In ar, this message translates to:
+  /// **'كلمتا المرور غير متطابقتين'**
+  String get passwordsDoNotMatch;
+
+  /// Register action
+  ///
+  /// In ar, this message translates to:
+  /// **'إنشاء الحساب'**
+  String get register;
+
+  /// Existing account login prompt
+  ///
+  /// In ar, this message translates to:
+  /// **'لديك حساب بالفعل؟ تسجيل الدخول'**
+  String get alreadyHaveAccount;
+
+  /// Account creation success message
+  ///
+  /// In ar, this message translates to:
+  /// **'تم إنشاء الحساب بنجاح'**
+  String get accountCreatedSuccessfully;
+
+  /// Phone number input hint
+  ///
+  /// In ar, this message translates to:
+  /// **'01XXXXXXXXX'**
+  String get hintPhoneNumber;
 }
 
 class _AppLocalizationsDelegate

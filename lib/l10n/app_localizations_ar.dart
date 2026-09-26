@@ -177,4 +177,98 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get pleaseEnter => 'من فضلك أدخل';
+
+  @override
+  String get welcomeTo => 'مرحباً بك في';
+
+  @override
+  String get phoneNumber => 'رقم الهاتف';
+
+  @override
+  String get enterPhoneNumber => 'من فضلك أدخل رقم الهاتف';
+
+  @override
+  String get phoneNumberMustBe11Digits => 'رقم الهاتف يجب أن يكون 11 رقم';
+
+  @override
+  String get password => 'كلمة المرور';
+
+  @override
+  String get enterPassword => 'من فضلك أدخل كلمة المرور';
+
+  @override
+  String get passwordMustBe6Characters =>
+      'كلمة المرور يجب أن تكون 6 أحرف على الأقل';
+
+  @override
+  String get login => 'تسجيل الدخول';
+
+  @override
+  String get createNewAccount => 'إنشاء حساب جديد';
+
+  @override
+  String get createAccount => 'إنشاء حساب';
+
+  @override
+  String get joinWasselni => 'انضم إلى Wasselni';
+
+  @override
+  String get fullName => 'الاسم بالكامل';
+
+  @override
+  String get enterYourName => 'أدخل اسمك';
+
+  @override
+  String get pleaseEnterYourName => 'من فضلك أدخل اسمك';
+
+  @override
+  String get nameMinLength => 'الاسم يجب أن يكون 3 أحرف على الأقل';
+
+  @override
+  String get pleaseEnterPhone => 'من فضلك أدخل رقم الهاتف';
+
+  @override
+  String get phoneMustBe11 => 'رقم الهاتف يجب أن يكون 11 رقم';
+
+  @override
+  String get invalidPhone => 'رقم الهاتف غير صحيح';
+
+  @override
+  String get email => 'البريد الإلكتروني';
+
+  @override
+  String get enterEmail => 'example@email.com';
+
+  @override
+  String get pleaseEnterEmail => 'من فضلك أدخل البريد الإلكتروني';
+
+  @override
+  String get invalidEmail => 'البريد الإلكتروني غير صحيح';
+
+  @override
+  String get pleaseEnterPassword => 'من فضلك أدخل كلمة المرور';
+
+  @override
+  String get passwordMinLength => 'كلمة المرور يجب أن تكون 6 أحرف على الأقل';
+
+  @override
+  String get confirmPassword => 'تأكيد كلمة المرور';
+
+  @override
+  String get pleaseConfirmPassword => 'من فضلك أكد كلمة المرور';
+
+  @override
+  String get passwordsDoNotMatch => 'كلمتا المرور غير متطابقتين';
+
+  @override
+  String get register => 'إنشاء الحساب';
+
+  @override
+  String get alreadyHaveAccount => 'لديك حساب بالفعل؟ تسجيل الدخول';
+
+  @override
+  String get accountCreatedSuccessfully => 'تم إنشاء الحساب بنجاح';
+
+  @override
+  String get hintPhoneNumber => '01XXXXXXXXX';
 }

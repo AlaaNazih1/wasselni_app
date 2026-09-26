@@ -177,4 +177,98 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pleaseEnter => 'Please enter';
+
+  @override
+  String get welcomeTo => 'Welcome to';
+
+  @override
+  String get phoneNumber => 'Phone Number';
+
+  @override
+  String get enterPhoneNumber => 'Please enter your phone number';
+
+  @override
+  String get phoneNumberMustBe11Digits => 'Phone number must be 11 digits';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get enterPassword => 'Please enter your password';
+
+  @override
+  String get passwordMustBe6Characters =>
+      'Password must be at least 6 characters';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get createNewAccount => 'Create New Account';
+
+  @override
+  String get createAccount => 'Create Account';
+
+  @override
+  String get joinWasselni => 'Join Wasselni';
+
+  @override
+  String get fullName => 'Full Name';
+
+  @override
+  String get enterYourName => 'Enter your name';
+
+  @override
+  String get pleaseEnterYourName => 'Please enter your name';
+
+  @override
+  String get nameMinLength => 'Name must be at least 3 characters';
+
+  @override
+  String get pleaseEnterPhone => 'Please enter your phone number';
+
+  @override
+  String get phoneMustBe11 => 'Phone number must be 11 digits';
+
+  @override
+  String get invalidPhone => 'Invalid phone number';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get enterEmail => 'example@email.com';
+
+  @override
+  String get pleaseEnterEmail => 'Please enter your email';
+
+  @override
+  String get invalidEmail => 'Invalid email address';
+
+  @override
+  String get pleaseEnterPassword => 'Please enter your password';
+
+  @override
+  String get passwordMinLength => 'Password must be at least 6 characters';
+
+  @override
+  String get confirmPassword => 'Confirm Password';
+
+  @override
+  String get pleaseConfirmPassword => 'Please confirm your password';
+
+  @override
+  String get passwordsDoNotMatch => 'Passwords do not match';
+
+  @override
+  String get register => 'Create Account';
+
+  @override
+  String get alreadyHaveAccount => 'Already have an account? Login';
+
+  @override
+  String get accountCreatedSuccessfully => 'Account created successfully';
+
+  @override
+  String get hintPhoneNumber => '01XXXXXXXXX';
 }

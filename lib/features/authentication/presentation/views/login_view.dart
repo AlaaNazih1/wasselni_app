@@ -6,10 +6,11 @@ import 'package:wasselni/core/widgets/custom_text_button.dart';
 import 'package:wasselni/core/widgets/custom_text_form_field.dart';
 import 'package:wasselni/features/authentication/presentation/controllers/auth_controller.dart';
 import 'package:wasselni/features/home/presentation/views/main_navigation_view.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 import '../../../../core/theme/app_colors.dart';
 
-class LoginView extends ConsumerStatefulWidget  {
+class LoginView extends ConsumerStatefulWidget {
   const LoginView({super.key});
 
   @override
@@ -69,6 +70,8 @@ class _LoginViewState extends ConsumerState<LoginView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -92,10 +95,10 @@ class _LoginViewState extends ConsumerState<LoginView> {
                 const SizedBox(height: 35),
 
                 // Welcome Text
-                const Text(
-                  'مرحباً بك في',
+                Text(
+                  l10n.welcomeTo,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w700,
                     color: AppColors.black,
@@ -117,10 +120,10 @@ class _LoginViewState extends ConsumerState<LoginView> {
                 const SizedBox(height: 45),
 
                 // Phone Label
-                const Text(
-                  'رقم الهاتف',
+                Text(
+                  l10n.phoneNumber,
                   textAlign: TextAlign.right,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
                     color: AppColors.black,
@@ -141,23 +144,24 @@ class _LoginViewState extends ConsumerState<LoginView> {
                   ),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'من فضلك أدخل رقم الهاتف';
+                      return l10n.enterPhoneNumber;
                     }
 
                     if (value.length != 11) {
-                      return 'رقم الهاتف يجب أن يكون 11 رقم';
+                      return l10n.phoneNumberMustBe11Digits;
                     }
 
                     return null;
                   },
                 ),
+
                 const SizedBox(height: 22),
 
                 // Password Label
-                const Text(
-                  'كلمة المرور',
+                Text(
+                  l10n.password,
                   textAlign: TextAlign.right,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
                     color: AppColors.black,
@@ -194,11 +198,11 @@ class _LoginViewState extends ConsumerState<LoginView> {
 
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'من فضلك أدخل كلمة المرور';
+                      return l10n.enterPassword;
                     }
 
                     if (value.length < 6) {
-                      return 'كلمة المرور يجب أن تكون 6 أحرف على الأقل';
+                      return l10n.passwordMustBe6Characters;
                     }
 
                     return null;
@@ -208,13 +212,13 @@ class _LoginViewState extends ConsumerState<LoginView> {
                 const SizedBox(height: 35),
 
                 // Login Button
-                CustomButton(text: 'تسجيل الدخول', onPressed: _login),
+                CustomButton(text: l10n.login, onPressed: _login),
 
                 const SizedBox(height: 25),
 
                 // Register
                 CustomTextButton(
-                  text: 'إنشاء حساب جديد',
+                  text: l10n.createNewAccount,
                   onPressed: _createAccount,
                 ),
               ],
