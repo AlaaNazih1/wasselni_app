@@ -132,6 +132,31 @@
   "viewAll": "View All",
   "@viewAll": {
     "description": "View all orders label"
-  }
+  },
+    "orderCreatedSuccessfully": "Order created successfully",
+  "pickupAddress": "From (Pickup Address)",
+  "pickupExample": "Example: Dairut",
+  "deliveryAddress": "To (Delivery Address)",
+  "deliveryExample": "Example: Assiut",
+  "continueButton": "Continue",
+  "createNewOrder": "Create New Order",
+  "pickupAndDelivery": "Pickup & Delivery",
+  "deliveryOnly": "Delivery Only",
+    "orderDetails": "Order Details",
+  "enterOrderDetails": "Please enter order details",
+  "orderDetailsHint": "Write order details...",
+    "priceDetails": "Price Details",
+  "loginRequired": "You must log in first",
+  "orderConfirmedSuccessfully": "Order confirmed successfully",
+  "orderCreationError": "An error occurred while creating the order: {error}",
+  "pickupLocation": "Pickup Location",
+  "deliveryLocation": "Delivery Location",
+  "deliveryPrice": "Delivery Price",
+  "additionalFees": "Additional Fees",
+  "ifAny": "(if any)",
+  "totalAmount": "Total Amount",
+  "creatingOrder": "Creating order...",
+  "confirmOrder": "Confirm Order",
+  "pleaseEnter": "Please enter"
 }
 

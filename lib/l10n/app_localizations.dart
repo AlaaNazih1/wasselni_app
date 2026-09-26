@@ -283,6 +283,156 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'عرض الكل'**
   String get viewAll;
+
+  /// Order creation success message
+  ///
+  /// In ar, this message translates to:
+  /// **'تم إنشاء الطلب بنجاح'**
+  String get orderCreatedSuccessfully;
+
+  /// Pickup address label
+  ///
+  /// In ar, this message translates to:
+  /// **'من (عنوان الاستلام)'**
+  String get pickupAddress;
+
+  /// Pickup address example
+  ///
+  /// In ar, this message translates to:
+  /// **'مثال: ديروط'**
+  String get pickupExample;
+
+  /// Delivery address label
+  ///
+  /// In ar, this message translates to:
+  /// **'إلى (عنوان التسليم)'**
+  String get deliveryAddress;
+
+  /// Delivery address example
+  ///
+  /// In ar, this message translates to:
+  /// **'مثال: أسيوط'**
+  String get deliveryExample;
+
+  /// Continue action
+  ///
+  /// In ar, this message translates to:
+  /// **'متابعة'**
+  String get continueButton;
+
+  /// Create a new order label
+  ///
+  /// In ar, this message translates to:
+  /// **'إنشاء طلب جديد'**
+  String get createNewOrder;
+
+  /// Pickup and delivery option label
+  ///
+  /// In ar, this message translates to:
+  /// **'استلام وتوصيل'**
+  String get pickupAndDelivery;
+
+  /// Delivery only option label
+  ///
+  /// In ar, this message translates to:
+  /// **'توصيل فقط'**
+  String get deliveryOnly;
+
+  /// Order details section label
+  ///
+  /// In ar, this message translates to:
+  /// **'تفاصيل الطلب'**
+  String get orderDetails;
+
+  /// Prompt to enter order details
+  ///
+  /// In ar, this message translates to:
+  /// **'من فضلك أدخل تفاصيل الطلب'**
+  String get enterOrderDetails;
+
+  /// Hint for entering order details
+  ///
+  /// In ar, this message translates to:
+  /// **'اكتب تفاصيل الطلب...'**
+  String get orderDetailsHint;
+
+  /// Price details section label
+  ///
+  /// In ar, this message translates to:
+  /// **'تفاصيل السعر'**
+  String get priceDetails;
+
+  /// Message shown when login is required
+  ///
+  /// In ar, this message translates to:
+  /// **'يجب تسجيل الدخول أولاً'**
+  String get loginRequired;
+
+  /// Order confirmation success message
+  ///
+  /// In ar, this message translates to:
+  /// **'تم تأكيد الطلب بنجاح'**
+  String get orderConfirmedSuccessfully;
+
+  /// Order creation error message
+  ///
+  /// In ar, this message translates to:
+  /// **'حدث خطأ أثناء إنشاء الطلب: {error}'**
+  String orderCreationError(String error);
+
+  /// Pickup location label
+  ///
+  /// In ar, this message translates to:
+  /// **'مكان الاستلام'**
+  String get pickupLocation;
+
+  /// Delivery location label
+  ///
+  /// In ar, this message translates to:
+  /// **'مكان التوصيل'**
+  String get deliveryLocation;
+
+  /// Delivery price label
+  ///
+  /// In ar, this message translates to:
+  /// **'سعر التوصيل'**
+  String get deliveryPrice;
+
+  /// Additional fees label
+  ///
+  /// In ar, this message translates to:
+  /// **'رسوم إضافية'**
+  String get additionalFees;
+
+  /// Optional fees qualifier
+  ///
+  /// In ar, this message translates to:
+  /// **'(إن وجدت)'**
+  String get ifAny;
+
+  /// Total amount label
+  ///
+  /// In ar, this message translates to:
+  /// **'إجمالي المبلغ'**
+  String get totalAmount;
+
+  /// Message shown while creating an order
+  ///
+  /// In ar, this message translates to:
+  /// **'جاري إنشاء الطلب...'**
+  String get creatingOrder;
+
+  /// Confirm order action
+  ///
+  /// In ar, this message translates to:
+  /// **'تأكيد الطلب'**
+  String get confirmOrder;
+
+  /// Prompt preceding a required input
+  ///
+  /// In ar, this message translates to:
+  /// **'من فضلك أدخل'**
+  String get pleaseEnter;
 }
 
 class _AppLocalizationsDelegate

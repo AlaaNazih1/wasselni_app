@@ -100,4 +100,81 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get viewAll => 'عرض الكل';
+
+  @override
+  String get orderCreatedSuccessfully => 'تم إنشاء الطلب بنجاح';
+
+  @override
+  String get pickupAddress => 'من (عنوان الاستلام)';
+
+  @override
+  String get pickupExample => 'مثال: ديروط';
+
+  @override
+  String get deliveryAddress => 'إلى (عنوان التسليم)';
+
+  @override
+  String get deliveryExample => 'مثال: أسيوط';
+
+  @override
+  String get continueButton => 'متابعة';
+
+  @override
+  String get createNewOrder => 'إنشاء طلب جديد';
+
+  @override
+  String get pickupAndDelivery => 'استلام وتوصيل';
+
+  @override
+  String get deliveryOnly => 'توصيل فقط';
+
+  @override
+  String get orderDetails => 'تفاصيل الطلب';
+
+  @override
+  String get enterOrderDetails => 'من فضلك أدخل تفاصيل الطلب';
+
+  @override
+  String get orderDetailsHint => 'اكتب تفاصيل الطلب...';
+
+  @override
+  String get priceDetails => 'تفاصيل السعر';
+
+  @override
+  String get loginRequired => 'يجب تسجيل الدخول أولاً';
+
+  @override
+  String get orderConfirmedSuccessfully => 'تم تأكيد الطلب بنجاح';
+
+  @override
+  String orderCreationError(String error) {
+    return 'حدث خطأ أثناء إنشاء الطلب: $error';
+  }
+
+  @override
+  String get pickupLocation => 'مكان الاستلام';
+
+  @override
+  String get deliveryLocation => 'مكان التوصيل';
+
+  @override
+  String get deliveryPrice => 'سعر التوصيل';
+
+  @override
+  String get additionalFees => 'رسوم إضافية';
+
+  @override
+  String get ifAny => '(إن وجدت)';
+
+  @override
+  String get totalAmount => 'إجمالي المبلغ';
+
+  @override
+  String get creatingOrder => 'جاري إنشاء الطلب...';
+
+  @override
+  String get confirmOrder => 'تأكيد الطلب';
+
+  @override
+  String get pleaseEnter => 'من فضلك أدخل';
 }

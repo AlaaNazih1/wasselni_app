@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:wasselni/core/theme/app_colors.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 class OrderLocationField extends StatelessWidget {
   const OrderLocationField({
@@ -16,6 +16,8 @@ class OrderLocationField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -35,7 +37,7 @@ class OrderLocationField extends StatelessWidget {
 
           validator: (value) {
             if (value == null || value.trim().isEmpty) {
-              return 'من فضلك أدخل $title';
+              return '${l10n.pleaseEnter} $title';
             }
 
             return null;

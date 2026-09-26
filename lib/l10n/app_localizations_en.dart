@@ -100,4 +100,81 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get viewAll => 'View All';
+
+  @override
+  String get orderCreatedSuccessfully => 'Order created successfully';
+
+  @override
+  String get pickupAddress => 'From (Pickup Address)';
+
+  @override
+  String get pickupExample => 'Example: Dairut';
+
+  @override
+  String get deliveryAddress => 'To (Delivery Address)';
+
+  @override
+  String get deliveryExample => 'Example: Assiut';
+
+  @override
+  String get continueButton => 'Continue';
+
+  @override
+  String get createNewOrder => 'Create New Order';
+
+  @override
+  String get pickupAndDelivery => 'Pickup & Delivery';
+
+  @override
+  String get deliveryOnly => 'Delivery Only';
+
+  @override
+  String get orderDetails => 'Order Details';
+
+  @override
+  String get enterOrderDetails => 'Please enter order details';
+
+  @override
+  String get orderDetailsHint => 'Write order details...';
+
+  @override
+  String get priceDetails => 'Price Details';
+
+  @override
+  String get loginRequired => 'You must log in first';
+
+  @override
+  String get orderConfirmedSuccessfully => 'Order confirmed successfully';
+
+  @override
+  String orderCreationError(String error) {
+    return 'An error occurred while creating the order: $error';
+  }
+
+  @override
+  String get pickupLocation => 'Pickup Location';
+
+  @override
+  String get deliveryLocation => 'Delivery Location';
+
+  @override
+  String get deliveryPrice => 'Delivery Price';
+
+  @override
+  String get additionalFees => 'Additional Fees';
+
+  @override
+  String get ifAny => '(if any)';
+
+  @override
+  String get totalAmount => 'Total Amount';
+
+  @override
+  String get creatingOrder => 'Creating order...';
+
+  @override
+  String get confirmOrder => 'Confirm Order';
+
+  @override
+  String get pleaseEnter => 'Please enter';
 }

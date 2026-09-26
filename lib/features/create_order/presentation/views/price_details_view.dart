@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:wasselni/features/create_order/widgets/location_row_widget.dart';
+import 'package:wasselni/features/create_order/widgets/price_row_widget.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 import 'package:wasselni/core/theme/app_colors.dart';
 import 'package:wasselni/core/widgets/custom_button.dart';
@@ -42,12 +45,13 @@ class _PriceDetailsViewState extends State<PriceDetailsView> {
   Future<void> _confirmOrder() async {
     if (_isLoading) return;
 
+    final l10n = AppLocalizations.of(context);
     final user = FirebaseAuth.instance.currentUser;
 
     if (user == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('يجب تسجيل الدخول أولاً'),
+        SnackBar(
+          content: Text(l10n.loginRequired),
           backgroundColor: AppColors.error,
         ),
       );
@@ -64,34 +68,24 @@ class _PriceDetailsViewState extends State<PriceDetailsView> {
           .doc(user.uid)
           .collection('orders');
 
-      // إنشاء Document جديد والحصول على الـ ID
       final orderDoc = ordersRef.doc();
 
-      // رقم الطلب
       final orderNumber =
           '#${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}';
 
       await orderDoc.set({
         'orderNumber': orderNumber,
         'userId': user.uid,
-
         'from': widget.from,
         'to': widget.to,
-
         'orderType': widget.orderType,
-
         'distance': widget.distance,
-
         'deliveryPrice': deliveryPrice,
         'additionalFees': additionalFees,
         'totalPrice': totalPrice,
-
-        // الحالة الأولية للطلب
         'status': 'تم استلام الطلب',
-
         'driverName': '',
         'driverId': '',
-
         'createdAt': FieldValue.serverTimestamp(),
         'updatedAt': FieldValue.serverTimestamp(),
       });
@@ -99,8 +93,8 @@ class _PriceDetailsViewState extends State<PriceDetailsView> {
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('تم تأكيد الطلب بنجاح'),
+        SnackBar(
+          content: Text(l10n.orderConfirmedSuccessfully),
           backgroundColor: AppColors.success,
         ),
       );
@@ -115,7 +109,7 @@ class _PriceDetailsViewState extends State<PriceDetailsView> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('حدث خطأ أثناء إنشاء الطلب: $e'),
+          content: Text(l10n.orderCreationError(e.toString())),
           backgroundColor: AppColors.error,
         ),
       );
@@ -130,13 +124,15 @@ class _PriceDetailsViewState extends State<PriceDetailsView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Scaffold(
       backgroundColor: AppColors.background,
 
       appBar: AppBar(
-        title: const Text(
-          'تفاصيل السعر',
-          style: TextStyle(fontWeight: FontWeight.w900),
+        title: Text(
+          l10n.priceDetails,
+          style: const TextStyle(fontWeight: FontWeight.w900),
         ),
         centerTitle: true,
         backgroundColor: AppColors.background,
@@ -149,7 +145,6 @@ class _PriceDetailsViewState extends State<PriceDetailsView> {
 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-
           children: [
             Container(
               width: double.infinity,
@@ -187,8 +182,8 @@ class _PriceDetailsViewState extends State<PriceDetailsView> {
                     child: Column(
                       children: [
                         if (widget.orderType == 0)
-                          _LocationRow(
-                            title: 'مكان الاستلام',
+                          LocationRow(
+                            title: l10n.pickupLocation,
                             location: widget.from,
                             icon: Icons.location_on_outlined,
                           ),
@@ -202,8 +197,8 @@ class _PriceDetailsViewState extends State<PriceDetailsView> {
                             ),
                           ),
 
-                        _LocationRow(
-                          title: 'مكان التوصيل',
+                        LocationRow(
+                          title: l10n.deliveryLocation,
                           location: widget.to,
                           icon: Icons.location_on_outlined,
                         ),
@@ -216,17 +211,19 @@ class _PriceDetailsViewState extends State<PriceDetailsView> {
 
             const SizedBox(height: 24),
 
-            _PriceRow(
-              title: 'سعر التوصيل',
-              value: '${deliveryPrice.toStringAsFixed(0)} جنيه',
+            PriceRow(
+              title: l10n.deliveryPrice,
+              value:
+                  '${deliveryPrice.toStringAsFixed(0)} ${l10n.currency}',
             ),
 
             const SizedBox(height: 16),
 
-            _PriceRow(
-              title: 'رسوم إضافية',
-              subtitle: '(إن وجدت)',
-              value: '${additionalFees.toStringAsFixed(0)} جنيه',
+            PriceRow(
+              title: l10n.additionalFees,
+              subtitle: l10n.ifAny,
+              value:
+                  '${additionalFees.toStringAsFixed(0)} ${l10n.currency}',
             ),
 
             const Padding(
@@ -234,16 +231,16 @@ class _PriceDetailsViewState extends State<PriceDetailsView> {
               child: Divider(),
             ),
 
-            _PriceRow(
-              title: 'إجمالي المبلغ',
-              value: '${totalPrice.toStringAsFixed(0)} جنيه',
+            PriceRow(
+              title: l10n.totalAmount,
+              value: '${totalPrice.toStringAsFixed(0)} ${l10n.currency}',
               isTotal: true,
             ),
 
             const SizedBox(height: 30),
 
             CustomButton(
-              text: _isLoading ? 'جاري إنشاء الطلب...' : 'تأكيد الطلب',
+              text: _isLoading ? l10n.creatingOrder : l10n.confirmOrder,
               onPressed: _isLoading ? null : _confirmOrder,
             ),
           ],
@@ -253,110 +250,3 @@ class _PriceDetailsViewState extends State<PriceDetailsView> {
   }
 }
 
-class _LocationRow extends StatelessWidget {
-  const _LocationRow({
-    required this.title,
-    required this.location,
-    required this.icon,
-  });
-
-  final String title;
-  final String location;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 42,
-          height: 42,
-
-          decoration: BoxDecoration(
-            color: AppColors.primary.withValues(alpha: 0.15),
-            shape: BoxShape.circle,
-          ),
-
-          child: Icon(icon, color: AppColors.black),
-        ),
-
-        const SizedBox(width: 12),
-
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-
-          children: [
-            Text(
-              title,
-              style: const TextStyle(color: AppColors.grey, fontSize: 12),
-            ),
-
-            const SizedBox(height: 3),
-
-            Text(
-              location,
-              style: const TextStyle(
-                color: AppColors.black,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class _PriceRow extends StatelessWidget {
-  const _PriceRow({
-    required this.title,
-    required this.value,
-    this.subtitle,
-    this.isTotal = false,
-  });
-
-  final String title;
-  final String value;
-  final String? subtitle;
-  final bool isTotal;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-      children: [
-        Row(
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: isTotal ? 18 : 15,
-                fontWeight: isTotal ? FontWeight.w900 : FontWeight.w700,
-                color: AppColors.black,
-              ),
-            ),
-
-            if (subtitle != null) ...[
-              const SizedBox(width: 5),
-
-              Text(
-                subtitle!,
-                style: const TextStyle(color: AppColors.grey, fontSize: 12),
-              ),
-            ],
-          ],
-        ),
-
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: isTotal ? 19 : 15,
-            fontWeight: FontWeight.w900,
-            color: isTotal ? AppColors.primary : AppColors.black,
-          ),
-        ),
-      ],
-    );
-  }
-}

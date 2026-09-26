@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 import 'package:wasselni/core/theme/app_colors.dart';
 
@@ -9,12 +10,14 @@ class OrderDetailsField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'تفاصيل الطلب',
-          style: TextStyle(
+        Text(
+          l10n.orderDetails,
+          style: const TextStyle(
             color: AppColors.black,
             fontSize: 15,
             fontWeight: FontWeight.bold,
@@ -29,14 +32,14 @@ class OrderDetailsField extends StatelessWidget {
 
           validator: (value) {
             if (value == null || value.trim().isEmpty) {
-              return 'من فضلك أدخل تفاصيل الطلب';
+              return l10n.enterOrderDetails;
             }
 
             return null;
           },
 
           decoration: InputDecoration(
-            hintText: 'اكتب تفاصيل الطلب...',
+            hintText: l10n.orderDetailsHint,
 
             prefixIcon: const Padding(
               padding: EdgeInsets.only(bottom: 60),

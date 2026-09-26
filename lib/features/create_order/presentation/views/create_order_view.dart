@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:wasselni/features/create_order/presentation/views/price_details_view.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 import 'package:wasselni/core/theme/app_colors.dart';
 import 'package:wasselni/core/widgets/custom_button.dart';
-import 'package:wasselni/features/create_order/presentation/views/price_details_view.dart';
 import 'package:wasselni/features/create_order/widgets/create_order_header.dart';
 import 'package:wasselni/features/create_order/widgets/create_order_type_selector.dart';
 import 'package:wasselni/features/create_order/widgets/order_details_field.dart';
@@ -36,13 +37,15 @@ class _CreateOrderViewState extends State<CreateOrderView> {
   }
 
   void createOrder() {
+    final l10n = AppLocalizations.of(context);
+
     if (!formKey.currentState!.validate()) {
       return;
     }
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('تم إنشاء الطلب بنجاح'),
+      SnackBar(
+        content: Text(l10n.orderCreatedSuccessfully),
         backgroundColor: AppColors.success,
       ),
     );
@@ -50,13 +53,14 @@ class _CreateOrderViewState extends State<CreateOrderView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Scaffold(
       backgroundColor: AppColors.background,
 
       body: SafeArea(
         child: Form(
           key: formKey,
-
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16),
 
@@ -78,43 +82,40 @@ class _CreateOrderViewState extends State<CreateOrderView> {
 
                 const SizedBox(height: 24),
 
-                // استلام وتوصيل
                 if (selectedOrderType == 0) ...[
                   OrderLocationField(
-                    title: 'من (عنوان الاستلام)',
-                    hintText: 'مثال: ديروط',
+                    title: l10n.pickupAddress,
+                    hintText: l10n.pickupExample,
                     controller: fromController,
                   ),
 
                   const SizedBox(height: 18),
 
                   OrderLocationField(
-                    title: 'إلى (عنوان التسليم)',
-                    hintText: 'مثال: أسيوط',
+                    title: l10n.deliveryAddress,
+                    hintText: l10n.deliveryExample,
                     controller: toController,
                   ),
-                ]
-                // توصيل فقط
-                else ...[
+                ] else ...[
                   OrderLocationField(
-                    title: 'إلى (عنوان التسليم)',
-                    hintText: 'مثال: أسيوط',
+                    title: l10n.deliveryAddress,
+                    hintText: l10n.deliveryExample,
                     controller: toController,
                   ),
                 ],
 
                 const SizedBox(height: 18),
 
-                OrderDetailsField(controller: detailsController),
+                OrderDetailsField(
+                  controller: detailsController,
+                ),
 
                 const SizedBox(height: 18),
-
-                
 
                 const SizedBox(height: 30),
 
                 CustomButton(
-                  text: 'متابعة',
+                  text: l10n.continueButton,
                   onPressed: () {
                     if (!formKey.currentState!.validate()) {
                       return;
@@ -127,7 +128,7 @@ class _CreateOrderViewState extends State<CreateOrderView> {
                           from: fromController.text,
                           to: toController.text,
                           distance: 10,
-                            orderType: selectedOrderType
+                          orderType: selectedOrderType,
                         ),
                       ),
                     );

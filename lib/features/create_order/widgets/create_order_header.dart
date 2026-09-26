@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 import 'package:wasselni/core/theme/app_colors.dart';
 
@@ -7,15 +8,15 @@ class CreateOrderHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Row(
       children: [
-       
-
-        const Expanded(
+        Expanded(
           child: Text(
-            ' إنشاء طلب جديد',
+            l10n.createNewOrder,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               color: AppColors.black,
               fontSize: 20,
               fontWeight: FontWeight.w900,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
+
 import 'package:wasselni/core/theme/app_colors.dart';
 
 class CreateOrderTypeSelector extends StatelessWidget {
@@ -13,6 +15,8 @@ class CreateOrderTypeSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Container(
       height: 50,
       padding: const EdgeInsets.all(4),
@@ -23,8 +27,8 @@ class CreateOrderTypeSelector extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Expanded(child: _buildItem(title: 'استلام وتوصيل', index: 0)),
-          Expanded(child: _buildItem(title: 'توصيل فقط', index: 1)),
+          Expanded(child: _buildItem(title: l10n.pickupAndDelivery, index: 0)),
+          Expanded(child: _buildItem(title: l10n.deliveryOnly, index: 1)),
         ],
       ),
     );
