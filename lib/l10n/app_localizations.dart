@@ -235,6 +235,54 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'اطلب اللي محتاجه بسهولة'**
   String get orderWhatYouNeed;
+
+  /// Orders category label
+  ///
+  /// In ar, this message translates to:
+  /// **'طلبات'**
+  String get orders;
+
+  /// Restaurants category label
+  ///
+  /// In ar, this message translates to:
+  /// **'مطاعم'**
+  String get restaurants;
+
+  /// Pharmacies category label
+  ///
+  /// In ar, this message translates to:
+  /// **'صيدليات'**
+  String get pharmacies;
+
+  /// Stores category label
+  ///
+  /// In ar, this message translates to:
+  /// **'متاجر'**
+  String get stores;
+
+  /// Always ahead message
+  ///
+  /// In ar, this message translates to:
+  /// **'مع وصلني دائماً'**
+  String get alwaysAhead;
+
+  /// One step ahead message
+  ///
+  /// In ar, this message translates to:
+  /// **'سابقين بخطوة'**
+  String get oneStepAhead;
+
+  /// Latest orders label
+  ///
+  /// In ar, this message translates to:
+  /// **'آخر الطلبات'**
+  String get latestOrders;
+
+  /// View all orders label
+  ///
+  /// In ar, this message translates to:
+  /// **'عرض الكل'**
+  String get viewAll;
 }
 
 class _AppLocalizationsDelegate

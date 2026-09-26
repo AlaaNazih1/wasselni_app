@@ -47,6 +47,22 @@
   "@welcome": {"description": "Welcome message"},
   "orderWhatYouNeed": "اطلب اللي محتاجه بسهولة",
   "@orderWhatYouNeed": {"description": "Prompt encouraging users to order what they need"}
+,"orders": "طلبات",
+  "@orders": {"description": "Orders category label"},
+  "restaurants": "مطاعم",
+  "@restaurants": {"description": "Restaurants category label"},
+  "pharmacies": "صيدليات",
+  "@pharmacies": {"description": "Pharmacies category label"},
+  "stores": "متاجر",
+  "@stores": {"description": "Stores category label"},
+   "alwaysAhead": "مع وصلني دائماً",
+  "@alwaysAhead": {"description": "Always ahead message"},
+  "oneStepAhead": "سابقين بخطوة",
+  "@oneStepAhead": {"description": "One step ahead message"},
+  "latestOrders": "آخر الطلبات",
+  "@latestOrders": {"description": "Latest orders label"},
+"viewAll": "عرض الكل"
+  ,"@viewAll": {"description": "View all orders label"}
 }
 
 

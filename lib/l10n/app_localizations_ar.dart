@@ -76,4 +76,28 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get orderWhatYouNeed => 'اطلب اللي محتاجه بسهولة';
+
+  @override
+  String get orders => 'طلبات';
+
+  @override
+  String get restaurants => 'مطاعم';
+
+  @override
+  String get pharmacies => 'صيدليات';
+
+  @override
+  String get stores => 'متاجر';
+
+  @override
+  String get alwaysAhead => 'مع وصلني دائماً';
+
+  @override
+  String get oneStepAhead => 'سابقين بخطوة';
+
+  @override
+  String get latestOrders => 'آخر الطلبات';
+
+  @override
+  String get viewAll => 'عرض الكل';
 }

@@ -96,6 +96,42 @@
   "orderWhatYouNeed": "Order what you need easily",
   "@orderWhatYouNeed": {
     "description": "Prompt encouraging users to order what they need"
+  },
+  "orders": "Orders",
+  "@orders": {
+    "description": "Orders category label"
+  },
+  "orderNow": "Order Now",
+  "@orderNow": {
+    "description": "Label for ordering now"
+  },
+  "restaurants": "Restaurants",
+  "@restaurants": {
+    "description": "Restaurants category label"
+  },  
+  "pharmacies": "Pharmacies",
+  "@pharmacies": {
+    "description": "Pharmacies category label"
+  },
+  "stores": "Stores",
+  "@stores": {
+    "description": "Stores category label"
+  },
+  "alwaysAhead": "With Wasselni, always",
+  "@alwaysAhead": {
+    "description": "Always ahead message"
+  },
+  "oneStepAhead": "One step ahead",
+  "@oneStepAhead": {
+    "description": "One step ahead message"
+  },
+  "latestOrders": "Latest Orders",
+  "@latestOrders": {
+    "description": "Latest orders label"
+  },
+  "viewAll": "View All",
+  "@viewAll": {
+    "description": "View all orders label"
   }
 }
 

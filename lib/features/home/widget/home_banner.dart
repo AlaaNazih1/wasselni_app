@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 import '../../../../core/theme/app_colors.dart';
 
@@ -7,6 +8,10 @@ class HomeBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
+    final isEnglish = Localizations.localeOf(context).languageCode == 'en';
+
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
@@ -18,40 +23,53 @@ class HomeBanner extends StatelessWidget {
           ),
           child: Stack(
             children: [
+              // Text
               Positioned(
                 right: 20,
-                top: 22,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'مع وصلني دائماً',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w900,
-                        color: AppColors.black,
+                top: 25,
+                child: SizedBox(
+                  width: isEnglish ? 190 : 200,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        l10n.alwaysAhead,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: isEnglish ? 23 : 30,
+                          height: 1.1,
+                          fontWeight: FontWeight.w900,
+                          color: AppColors.black,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      'سابقين بخطوة',
-                      style: TextStyle(
-                        fontSize: 27,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.black,
+
+                      const SizedBox(height: 8),
+
+                      Text(
+                        l10n.oneStepAhead,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: isEnglish ? 21 : 27,
+                          height: 1.1,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.black,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
 
+              // Motorcycle
               Positioned(
-                left: 20,
-                top: 22,
+                left: 10,
+                bottom: 10,
                 child: Image.asset(
                   'assets/images/Motorcycle_artwork-removebg-preview.png',
-                  width: 120,
-                  height: 120,
+                  width: 115,
+                  height: 115,
                   fit: BoxFit.contain,
                 ),
               ),

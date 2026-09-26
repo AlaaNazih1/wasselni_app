@@ -76,4 +76,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get orderWhatYouNeed => 'Order what you need easily';
+
+  @override
+  String get orders => 'Orders';
+
+  @override
+  String get restaurants => 'Restaurants';
+
+  @override
+  String get pharmacies => 'Pharmacies';
+
+  @override
+  String get stores => 'Stores';
+
+  @override
+  String get alwaysAhead => 'With Wasselni, always';
+
+  @override
+  String get oneStepAhead => 'One step ahead';
+
+  @override
+  String get latestOrders => 'Latest Orders';
+
+  @override
+  String get viewAll => 'View All';
 }
