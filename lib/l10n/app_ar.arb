@@ -347,8 +347,27 @@
     }
   },
   "profileNoData": "لا توجد بيانات للمستخدم",
-  "@profileNoData": {"description": "Message shown when user profile data is unavailable"}
-
+  "@profileNoData": {"description": "Message shown when user profile data is unavailable"},
+    "ordersLoadError": "حدث خطأ في تحميل الطلبات",
+  "@ordersLoadError": {"description": "Error message shown when orders fail to load"},
+  "noOrders": "لا توجد طلبات",
+  "@noOrders": {"description": "Message shown when there are no orders"},
+  "defaultDriverName": "أحمد محمد"
+  ,"@defaultDriverName": {"description": "Default driver name"},
+    "deliveryDriver": "مندوب توصيل",
+  "@deliveryDriver": {"description": "Delivery driver label"},
+  "call": "اتصال",
+  "@call": {"description": "Call action"},
+    "orderStatus": "حالة الطلب",
+  "@orderStatus": {"description": "Order status label"},
+  "onTheWayForDelivery": "في الطريق للتسليم",
+  "@onTheWayForDelivery": {"description": "Order status shown when the delivery is on the way"}
+ , "all": "الكل",
+  "@all": {"description": "Label for all items"},
+  "inProgress": "قيد التنفيذ",
+  "@inProgress": {"description": "Order status shown when an order is in progress"},
+  "tracking": "متابعة الطلب",
+  "@tracking": {"description": "Tracking label"}
   
 }
 

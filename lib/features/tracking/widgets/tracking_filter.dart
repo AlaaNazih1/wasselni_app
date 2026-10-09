@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../../../core/theme/app_colors.dart';
+import 'package:wasselni/core/theme/app_colors.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 class TrackingFilter extends StatelessWidget {
   const TrackingFilter({
@@ -14,6 +14,8 @@ class TrackingFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -27,23 +29,21 @@ class TrackingFilter extends StatelessWidget {
             children: [
               Expanded(
                 child: _FilterItem(
-                  title: 'الكل',
+                  title: l10n.all,
                   selected: selectedFilter == 0,
                   onTap: () => onFilterChanged(0),
                 ),
               ),
-
               Expanded(
                 child: _FilterItem(
-                  title: 'قيد التنفيذ',
+                  title: l10n.inProgress,
                   selected: selectedFilter == 1,
                   onTap: () => onFilterChanged(1),
                 ),
               ),
-
               Expanded(
                 child: _FilterItem(
-                  title: 'تم التسليم',
+                  title: l10n.statusDelivered,
                   selected: selectedFilter == 2,
                   onTap: () => onFilterChanged(2),
                 ),

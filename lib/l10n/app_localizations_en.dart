@@ -522,4 +522,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profileNoData => 'No user data available';
+
+  @override
+  String get ordersLoadError => 'An error occurred while loading orders';
+
+  @override
+  String get noOrders => 'No orders found';
+
+  @override
+  String get defaultDriverName => 'Ahmed Mohamed';
+
+  @override
+  String get deliveryDriver => 'Delivery Driver';
+
+  @override
+  String get call => 'Call';
+
+  @override
+  String get orderStatus => 'Order Status';
+
+  @override
+  String get onTheWayForDelivery => 'On the Way for Delivery';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get inProgress => 'In Progress';
+
+  @override
+  String get tracking => 'Tracking';
 }

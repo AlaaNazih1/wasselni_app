@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/theme/app_colors.dart';
+import 'package:wasselni/core/theme/app_colors.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 class OrderTimeline extends StatelessWidget {
   const OrderTimeline({
@@ -10,10 +11,12 @@ class OrderTimeline extends StatelessWidget {
     this.inProgressAt,
     this.deliveredAt,
   });
+
   final String status;
   final dynamic createdAt;
   final dynamic inProgressAt;
   final dynamic deliveredAt;
+
   bool get isReceived {
     return status == 'pending' ||
         status == 'تم استلام الطلب' ||
@@ -34,23 +37,34 @@ class OrderTimeline extends StatelessWidget {
     return status == 'delivered' || status == 'تم التسليم';
   }
 
-  String formatTime(dynamic value) {
+  String formatTime(BuildContext context, dynamic value) {
     if (value == null || value is! Timestamp) {
       return '--';
     }
+
+    final l10n = AppLocalizations.of(context);
     final date = value.toDate();
+    final isArabic = l10n.localeName == 'ar';
+
     final hour = date.hour == 0
         ? 12
         : date.hour > 12
         ? date.hour - 12
         : date.hour;
+
     final minute = date.minute.toString().padLeft(2, '0');
-    final period = date.hour >= 12 ? 'م' : 'ص';
+
+    final period = date.hour >= 12
+        ? (isArabic ? 'م' : 'PM')
+        : (isArabic ? 'ص' : 'AM');
+
     return '$hour:$minute $period';
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
@@ -63,32 +77,36 @@ class OrderTimeline extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'حالة الطلب',
-            style: TextStyle(
+          Text(
+            l10n.orderStatus,
+            style: const TextStyle(
               fontSize: 17,
               fontWeight: FontWeight.w900,
               color: AppColors.black,
             ),
           ),
+
           const SizedBox(height: 20),
+
           _TimelineItem(
-            title: 'تم استلام الطلب',
-            time: formatTime(createdAt),
+            title: l10n.statusPending,
+            time: formatTime(context, createdAt),
             color: AppColors.success,
             isCompleted: isReceived,
             isLast: false,
           ),
+
           _TimelineItem(
-            title: 'في الطريق للتسليم',
-            time: isOnTheWay ? formatTime(inProgressAt) : '--',
+            title: l10n.onTheWayForDelivery,
+            time: isOnTheWay ? formatTime(context, inProgressAt) : '--',
             color: Colors.blue,
             isCompleted: isOnTheWay,
             isLast: false,
           ),
+
           _TimelineItem(
-            title: 'تم التسليم',
-            time: isDelivered ? formatTime(deliveredAt) : '--',
+            title: l10n.statusDelivered,
+            time: isDelivered ? formatTime(context, deliveredAt) : '--',
             color: AppColors.success,
             isCompleted: isDelivered,
             isLast: true,
@@ -107,11 +125,13 @@ class _TimelineItem extends StatelessWidget {
     required this.isCompleted,
     required this.isLast,
   });
+
   final String title;
   final String time;
   final Color color;
   final bool isCompleted;
   final bool isLast;
+
   @override
   Widget build(BuildContext context) {
     return IntrinsicHeight(
@@ -138,6 +158,7 @@ class _TimelineItem extends StatelessWidget {
                         )
                       : null,
                 ),
+
                 if (!isLast)
                   Expanded(
                     child: Container(
@@ -149,23 +170,30 @@ class _TimelineItem extends StatelessWidget {
               ],
             ),
           ),
+
           const SizedBox(width: 10),
+
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(bottom: 24),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: isCompleted
-                          ? FontWeight.w800
-                          : FontWeight.w600,
-                      color: isCompleted ? AppColors.black : AppColors.grey,
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: isCompleted
+                            ? FontWeight.w800
+                            : FontWeight.w600,
+                        color: isCompleted ? AppColors.black : AppColors.grey,
+                      ),
                     ),
                   ),
+
+                  const SizedBox(width: 8),
+
                   Text(
                     time,
                     style: const TextStyle(

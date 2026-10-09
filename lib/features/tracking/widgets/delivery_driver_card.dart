@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../../../core/theme/app_colors.dart';
+import 'package:wasselni/core/theme/app_colors.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 class DeliveryDriverCard extends StatelessWidget {
   const DeliveryDriverCard({
@@ -14,6 +14,8 @@ class DeliveryDriverCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -25,13 +27,10 @@ class DeliveryDriverCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // =========================
-          // Driver
-          // =========================
           CircleAvatar(
             radius: 35,
             backgroundColor: AppColors.primary,
-            backgroundImage: AssetImage(driverImage,),
+            backgroundImage: AssetImage(driverImage),
           ),
 
           const SizedBox(height: 10),
@@ -47,9 +46,9 @@ class DeliveryDriverCard extends StatelessWidget {
 
           const SizedBox(height: 3),
 
-          const Text(
-            'مندوب توصيل',
-            style: TextStyle(
+          Text(
+            l10n.deliveryDriver,
+            style: const TextStyle(
               fontSize: 13,
               color: AppColors.grey,
               fontWeight: FontWeight.w600,
@@ -58,15 +57,12 @@ class DeliveryDriverCard extends StatelessWidget {
 
           const SizedBox(height: 16),
 
-          // =========================
-          // Actions
-          // =========================
           Row(
             children: [
               Expanded(
                 child: _DriverActionButton(
                   icon: Icons.phone,
-                  title: 'اتصال',
+                  title: l10n.call,
                   color: AppColors.success,
                   onTap: () {
                     // هنربط الاتصال بعدين.

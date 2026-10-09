@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wasselni/features/tracking/presentation/controllers/order_controller.dart';
 
+import 'package:wasselni/core/theme/app_colors.dart';
+import 'package:wasselni/features/tracking/presentation/controllers/order_controller.dart';
 import 'package:wasselni/features/tracking/widgets/delivery_driver_card.dart';
 import 'package:wasselni/features/tracking/widgets/order_timeline.dart';
 import 'package:wasselni/features/tracking/widgets/tracking_filter.dart';
 import 'package:wasselni/features/tracking/widgets/tracking_header.dart';
 import 'package:wasselni/features/tracking/widgets/tracking_order_card.dart';
-
-import '../../../../core/theme/app_colors.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 class TrackingView extends ConsumerStatefulWidget {
   const TrackingView({super.key});
@@ -20,30 +20,30 @@ class TrackingView extends ConsumerStatefulWidget {
 class _TrackingViewState extends ConsumerState<TrackingView> {
   int selectedFilter = 0;
 
- String _getStatusText(String status) {
+  String _getStatusText(String status, AppLocalizations l10n) {
     switch (status) {
       case 'pending':
       case 'تم استلام الطلب':
-        return 'تم استلام الطلب';
+        return l10n.statusPending;
 
       case 'inProgress':
       case 'في الطريق':
-        return 'في الطريق';
+        return l10n.statusInProgress;
 
       case 'delivered':
       case 'تم التسليم':
-        return 'تم التسليم';
+        return l10n.statusDelivered;
 
       case 'cancelled':
       case 'ملغي':
-        return 'ملغي';
+        return l10n.statusCancelled;
 
       default:
-        return 'غير معروف';
+        return l10n.unknownStatus;
     }
   }
 
- Color _getStatusColor(String status) {
+  Color _getStatusColor(String status) {
     switch (status) {
       case 'pending':
       case 'تم استلام الطلب':
@@ -71,23 +71,19 @@ class _TrackingViewState extends ConsumerState<TrackingView> {
       return orders;
     }
 
-   if (selectedFilter == 1) {
-      return orders
-          .where(
-            (order) =>
-                order['status'] == 'inProgress' ||
-                order['status'] == 'في الطريق',
-          )
-          .toList();
+    if (selectedFilter == 1) {
+      return orders.where((order) {
+        final status = order['status'];
+
+        return status == 'inProgress' || status == 'في الطريق';
+      }).toList();
     }
 
-    return orders
-        .where(
-          (order) =>
-              order['status'] == 'delivered' || order['status'] == 'تم التسليم',
-        )
-        .toList();
+    return orders.where((order) {
+      final status = order['status'];
 
+      return status == 'delivered' || status == 'تم التسليم';
+    }).toList();
   }
 
   void changeFilter(int index) {
@@ -96,13 +92,21 @@ class _TrackingViewState extends ConsumerState<TrackingView> {
     });
   }
 
+  String _formatPrice(dynamic price) {
+    if (price is num) {
+      return price.toStringAsFixed(0);
+    }
+
+    return price.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final ordersAsync = ref.watch(ordersProvider);
 
     return Scaffold(
       backgroundColor: AppColors.background,
-
       body: SafeArea(
         child: ordersAsync.when(
           loading: () {
@@ -110,7 +114,6 @@ class _TrackingViewState extends ConsumerState<TrackingView> {
               child: CircularProgressIndicator(color: AppColors.primary),
             );
           },
-
           error: (error, stackTrace) {
             debugPrint('ORDERS ERROR: $error');
             debugPrintStack(stackTrace: stackTrace);
@@ -119,7 +122,7 @@ class _TrackingViewState extends ConsumerState<TrackingView> {
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Text(
-                  'حدث خطأ في تحميل الطلبات\n\n$error',
+                  l10n.ordersLoadError,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: AppColors.error,
@@ -129,7 +132,6 @@ class _TrackingViewState extends ConsumerState<TrackingView> {
               ),
             );
           },
-
           data: (orders) {
             final filteredOrders = _filterOrders(orders);
 
@@ -143,12 +145,12 @@ class _TrackingViewState extends ConsumerState<TrackingView> {
                 ),
 
                 if (filteredOrders.isEmpty)
-                  const SliverFillRemaining(
+                  SliverFillRemaining(
                     hasScrollBody: false,
                     child: Center(
                       child: Text(
-                        'لا توجد طلبات',
-                        style: TextStyle(
+                        l10n.noOrders,
+                        style: const TextStyle(
                           fontSize: 16,
                           color: AppColors.grey,
                           fontWeight: FontWeight.w700,
@@ -162,20 +164,23 @@ class _TrackingViewState extends ConsumerState<TrackingView> {
                     padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
                     sliver: SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {
-                       final order = filteredOrders[index];
-
-                        final status = order['status'] ?? 'pending';
+                        final order = filteredOrders[index];
+                        final status = (order['status'] ?? 'pending')
+                            .toString();
 
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 12),
                           child: TrackingOrderCard(
-                            orderId: order['id'] ?? '',
-                            orderNumber: order['orderNumber'] ?? '',
-                            status: _getStatusText(status),
+                            orderId: (order['id'] ?? '').toString(),
+                            orderNumber: (order['orderNumber'] ?? '')
+                                .toString(),
+                            status: _getStatusText(status, l10n),
                             statusColor: _getStatusColor(status),
-                            from: order['from'] ?? '',
-                            to: order['to'] ?? '',
-                            price: '${order['totalPrice'] ?? 0} جنيه',
+                            from: (order['from'] ?? '').toString(),
+                            to: (order['to'] ?? '').toString(),
+                            price:
+                                '${_formatPrice(order['totalPrice'] ?? 0)} '
+                                '${l10n.currency}',
                             time: '',
                           ),
                         );
@@ -190,13 +195,13 @@ class _TrackingViewState extends ConsumerState<TrackingView> {
                       delegate: SliverChildListDelegate([
                         const SizedBox(height: 4),
 
-                     DeliveryDriverCard(
+                        DeliveryDriverCard(
                           driverName:
                               (filteredOrders.first['driverName'] ?? '')
                                   .toString()
                                   .trim()
                                   .isEmpty
-                              ? "احمد محمد"
+                              ? l10n.defaultDriverName
                               : filteredOrders.first['driverName'].toString(),
                           driverImage:
                               'assets/images/wasselni_logo-removebg-preview.png',

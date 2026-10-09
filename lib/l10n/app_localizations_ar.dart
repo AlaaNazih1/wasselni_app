@@ -528,4 +528,34 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get profileNoData => 'لا توجد بيانات للمستخدم';
+
+  @override
+  String get ordersLoadError => 'حدث خطأ في تحميل الطلبات';
+
+  @override
+  String get noOrders => 'لا توجد طلبات';
+
+  @override
+  String get defaultDriverName => 'أحمد محمد';
+
+  @override
+  String get deliveryDriver => 'مندوب توصيل';
+
+  @override
+  String get call => 'اتصال';
+
+  @override
+  String get orderStatus => 'حالة الطلب';
+
+  @override
+  String get onTheWayForDelivery => 'في الطريق للتسليم';
+
+  @override
+  String get all => 'الكل';
+
+  @override
+  String get inProgress => 'قيد التنفيذ';
+
+  @override
+  String get tracking => 'متابعة الطلب';
 }

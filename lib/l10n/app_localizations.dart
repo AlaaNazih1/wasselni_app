@@ -1051,6 +1051,66 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'لا توجد بيانات للمستخدم'**
   String get profileNoData;
+
+  /// Error message shown when orders fail to load
+  ///
+  /// In ar, this message translates to:
+  /// **'حدث خطأ في تحميل الطلبات'**
+  String get ordersLoadError;
+
+  /// Message shown when there are no orders
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد طلبات'**
+  String get noOrders;
+
+  /// Default driver name
+  ///
+  /// In ar, this message translates to:
+  /// **'أحمد محمد'**
+  String get defaultDriverName;
+
+  /// Delivery driver label
+  ///
+  /// In ar, this message translates to:
+  /// **'مندوب توصيل'**
+  String get deliveryDriver;
+
+  /// Call action
+  ///
+  /// In ar, this message translates to:
+  /// **'اتصال'**
+  String get call;
+
+  /// Order status label
+  ///
+  /// In ar, this message translates to:
+  /// **'حالة الطلب'**
+  String get orderStatus;
+
+  /// Order status shown when the delivery is on the way
+  ///
+  /// In ar, this message translates to:
+  /// **'في الطريق للتسليم'**
+  String get onTheWayForDelivery;
+
+  /// Label for all items
+  ///
+  /// In ar, this message translates to:
+  /// **'الكل'**
+  String get all;
+
+  /// Order status shown when an order is in progress
+  ///
+  /// In ar, this message translates to:
+  /// **'قيد التنفيذ'**
+  String get inProgress;
+
+  /// Tracking label
+  ///
+  /// In ar, this message translates to:
+  /// **'متابعة الطلب'**
+  String get tracking;
 }
 
 class _AppLocalizationsDelegate

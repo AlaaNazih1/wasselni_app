@@ -289,7 +289,16 @@
       }
     }
   },
-  "profileNoData": "No user data available"
+  "profileNoData": "No user data available",
+  "noOrders": "No orders found",
+  "defaultDriverName": "Ahmed Mohamed",
+   "deliveryDriver": "Delivery Driver",
+  "call": "Call",
+    "orderStatus": "Order Status",
+  "onTheWayForDelivery": "On the Way for Delivery",
+    "all": "All",
+  "inProgress": "In Progress",
+  "tracking": "Tracking"
   
 }
 
