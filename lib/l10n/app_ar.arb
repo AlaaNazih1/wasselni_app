@@ -367,7 +367,11 @@
   "inProgress": "قيد التنفيذ",
   "@inProgress": {"description": "Order status shown when an order is in progress"},
   "tracking": "متابعة الطلب",
-  "@tracking": {"description": "Tracking label"}
+  "@tracking": {"description": "Tracking label"},
+    "confirmLogout": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+  "@confirmLogout": {"description": "Confirmation message shown before logging out"},
+  "logoutError": "حدث خطأ أثناء تسجيل الخروج",
+  "@logoutError": {"description": "Error message shown when logout fails"}
   
 }
 

@@ -558,4 +558,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get tracking => 'متابعة الطلب';
+
+  @override
+  String get confirmLogout => 'هل أنت متأكد أنك تريد تسجيل الخروج؟';
+
+  @override
+  String get logoutError => 'حدث خطأ أثناء تسجيل الخروج';
 }

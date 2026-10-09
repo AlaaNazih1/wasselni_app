@@ -1111,6 +1111,18 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'متابعة الطلب'**
   String get tracking;
+
+  /// Confirmation message shown before logging out
+  ///
+  /// In ar, this message translates to:
+  /// **'هل أنت متأكد أنك تريد تسجيل الخروج؟'**
+  String get confirmLogout;
+
+  /// Error message shown when logout fails
+  ///
+  /// In ar, this message translates to:
+  /// **'حدث خطأ أثناء تسجيل الخروج'**
+  String get logoutError;
 }
 
 class _AppLocalizationsDelegate

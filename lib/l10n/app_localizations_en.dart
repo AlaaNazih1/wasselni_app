@@ -552,4 +552,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tracking => 'Tracking';
+
+  @override
+  String get confirmLogout => 'Are you sure you want to log out?';
+
+  @override
+  String get logoutError => 'An error occurred while logging out';
 }

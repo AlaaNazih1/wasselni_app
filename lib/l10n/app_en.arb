@@ -298,7 +298,9 @@
   "onTheWayForDelivery": "On the Way for Delivery",
     "all": "All",
   "inProgress": "In Progress",
-  "tracking": "Tracking"
+  "tracking": "Tracking",
+    "confirmLogout": "Are you sure you want to log out?",
+  "logoutError": "An error occurred while logging out"
   
 }
 

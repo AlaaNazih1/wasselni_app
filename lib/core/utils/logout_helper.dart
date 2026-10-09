@@ -1,11 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 import '../routes/app_routes.dart';
 import '../theme/app_colors.dart';
 
 class LogoutHelper {
   static Future<void> showLogoutDialog(BuildContext context) async {
+    final l10n = AppLocalizations.of(context);
+
     final shouldLogout = await showDialog<bool>(
       context: context,
       builder: (dialogContext) {
@@ -13,23 +16,20 @@ class LogoutHelper {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18),
           ),
-          title: const Text(
-            'تسجيل الخروج',
-            textAlign: TextAlign.right,
-            style: TextStyle(fontWeight: FontWeight.w900),
+          title: Text(
+            l10n.logout,
+            textAlign: TextAlign.start,
+            style: const TextStyle(fontWeight: FontWeight.w900),
           ),
-          content: const Text(
-            'هل أنت متأكد أنك تريد تسجيل الخروج؟',
-            textAlign: TextAlign.right,
-          ),
+          content: Text(l10n.confirmLogout, textAlign: TextAlign.start),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(dialogContext, false);
               },
-              child: const Text(
-                'إلغاء',
-                style: TextStyle(color: AppColors.grey),
+              child: Text(
+                l10n.cancel,
+                style: const TextStyle(color: AppColors.grey),
               ),
             ),
             ElevatedButton(
@@ -40,7 +40,7 @@ class LogoutHelper {
                 backgroundColor: AppColors.error,
                 foregroundColor: Colors.white,
               ),
-              child: const Text('تسجيل الخروج'),
+              child: Text(l10n.logout),
             ),
           ],
         );
@@ -68,9 +68,11 @@ class LogoutHelper {
     } catch (e) {
       if (!context.mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('حدث خطأ أثناء تسجيل الخروج')),
-      );
+      final l10n = AppLocalizations.of(context)!;
+
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.logoutError)));
     }
   }
 }
