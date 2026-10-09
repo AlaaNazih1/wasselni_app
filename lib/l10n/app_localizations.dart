@@ -619,6 +619,78 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'01XXXXXXXXX'**
   String get hintPhoneNumber;
+
+  /// Order data label
+  ///
+  /// In ar, this message translates to:
+  /// **'بيانات الطلب'**
+  String get orderData;
+
+  /// Order not found message
+  ///
+  /// In ar, this message translates to:
+  /// **'الطلب غير موجود'**
+  String get orderNotFound;
+
+  /// Unknown order status
+  ///
+  /// In ar, this message translates to:
+  /// **'غير معروف'**
+  String get unknownStatus;
+
+  /// Pending order status
+  ///
+  /// In ar, this message translates to:
+  /// **'تم استلام الطلب'**
+  String get statusPending;
+
+  /// Order in progress status
+  ///
+  /// In ar, this message translates to:
+  /// **'في الطريق'**
+  String get statusInProgress;
+
+  /// Delivered order status
+  ///
+  /// In ar, this message translates to:
+  /// **'تم التسليم'**
+  String get statusDelivered;
+
+  /// Cancelled order status
+  ///
+  /// In ar, this message translates to:
+  /// **'ملغي'**
+  String get statusCancelled;
+
+  /// Trip details label
+  ///
+  /// In ar, this message translates to:
+  /// **'تفاصيل الرحلة'**
+  String get tripDetails;
+
+  /// Pickup origin label
+  ///
+  /// In ar, this message translates to:
+  /// **'من'**
+  String get from;
+
+  /// Delivery destination label
+  ///
+  /// In ar, this message translates to:
+  /// **'إلى'**
+  String get to;
+
+  /// Price label
+  ///
+  /// In ar, this message translates to:
+  /// **'السعر'**
+  String get price;
+
+  /// Total order amount label
+  ///
+  /// In ar, this message translates to:
+  /// **'إجمالي الطلب'**
+  String get totalOrder;
 }
 
 class _AppLocalizationsDelegate

@@ -179,7 +179,31 @@
     "accountCreatedSuccessfully": "تم إنشاء الحساب بنجاح",
     "@accountCreatedSuccessfully": {"description": "Account creation success message"}
 ,"hintPhoneNumber": "01XXXXXXXXX"
-  ,"@hintPhoneNumber": {"description": "Phone number input hint"}
+  ,"@hintPhoneNumber": {"description": "Phone number input hint"},
+    "orderData": "بيانات الطلب",
+  "@orderData": {"description": "Order data label"},
+  "orderNotFound": "الطلب غير موجود",
+  "@orderNotFound": {"description": "Order not found message"},
+  "unknownStatus": "غير معروف",
+  "@unknownStatus": {"description": "Unknown order status"},
+  "statusPending": "تم استلام الطلب",
+  "@statusPending": {"description": "Pending order status"},
+  "statusInProgress": "في الطريق",
+  "@statusInProgress": {"description": "Order in progress status"},
+  "statusDelivered": "تم التسليم",
+  "@statusDelivered": {"description": "Delivered order status"},
+  "statusCancelled": "ملغي",
+  "@statusCancelled": {"description": "Cancelled order status"},
+  "tripDetails": "تفاصيل الرحلة",
+  "@tripDetails": {"description": "Trip details label"},
+  "from": "من",
+  "@from": {"description": "Pickup origin label"},
+  "to": "إلى",
+  "@to": {"description": "Delivery destination label"},
+  "price": "السعر",
+  "@price": {"description": "Price label"},
+  "totalOrder": "إجمالي الطلب"
+  ,"@totalOrder": {"description": "Total order amount label"}
 }
 
 

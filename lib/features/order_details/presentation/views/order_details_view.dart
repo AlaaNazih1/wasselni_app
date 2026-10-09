@@ -3,13 +3,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:wasselni/core/theme/app_colors.dart';
+import 'package:wasselni/features/order_details/widgets/order_details_header.dart';
+import 'package:wasselni/features/order_details/widgets/order_price_card.dart';
+import 'package:wasselni/features/order_details/widgets/order_status_card.dart';
+import 'package:wasselni/features/order_details/widgets/order_trip_details.dart';
+
 import 'package:wasselni/features/tracking/widgets/order_timeline.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 class OrderDetailsView extends StatelessWidget {
   const OrderDetailsView({super.key, required this.orderId});
 
   final String orderId;
-  
 
   Color _getStatusColor(String status) {
     switch (status) {
@@ -34,61 +39,56 @@ class OrderDetailsView extends StatelessWidget {
     }
   }
 
- String _getStatusText(String status) {
+  String _getStatusText(String status, AppLocalizations l10n) {
     switch (status) {
       case 'pending':
       case 'تم استلام الطلب':
-        return 'تم استلام الطلب';
+        return l10n.statusPending;
 
       case 'inProgress':
       case 'في الطريق':
-        return 'في الطريق';
+        return l10n.statusInProgress;
 
       case 'delivered':
       case 'تم التسليم':
-        return 'تم التسليم';
+        return l10n.statusDelivered;
 
       case 'cancelled':
       case 'ملغي':
-        return 'ملغي';
+        return l10n.statusCancelled;
 
       default:
-        return 'غير معروف';
+        return l10n.unknownStatus;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-      final user = FirebaseAuth.instance.currentUser;
+    final l10n = AppLocalizations.of(context);
+    final user = FirebaseAuth.instance.currentUser;
 
     if (user == null) {
-      return const Scaffold(
-        body: Center(child: Text('يجب تسجيل الدخول أولاً')),
+      return Scaffold(
+        backgroundColor: AppColors.background,
+        body: Center(child: Text(l10n.loginRequired)),
       );
     }
+
     return Scaffold(
       backgroundColor: AppColors.background,
-
       appBar: AppBar(
         backgroundColor: AppColors.white,
         elevation: 0,
         centerTitle: true,
-
-        title: const Text(
-          'بيانات الطلب',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
-        ),
+        title: const OrderDetailsHeader(),
       ),
-
-      body: StreamBuilder<DocumentSnapshot>(
-        
+      body: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance
             .collection('users')
             .doc(user.uid)
             .collection('orders')
             .doc(orderId)
             .snapshots(),
-
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -96,153 +96,52 @@ class OrderDetailsView extends StatelessWidget {
             );
           }
 
-          if (!snapshot.hasData || !snapshot.data!.exists) {
-            return const Center(child: Text('الطلب غير موجود'));
+          if (snapshot.hasError) {
+            return const Center(
+              child: Icon(
+                Icons.error_outline,
+                color: AppColors.error,
+                size: 40,
+              ),
+            );
           }
 
-          final data = snapshot.data!.data() as Map<String, dynamic>;
+          if (!snapshot.hasData || !snapshot.data!.exists) {
+            return Center(child: Text(l10n.orderNotFound));
+          }
 
-          final status = data['status'] ?? 'pending';
+          final data = snapshot.data!.data();
 
+          if (data == null) {
+            return Center(child: Text(l10n.orderNotFound));
+          }
+
+          final status = (data['status'] ?? 'pending').toString();
           final statusColor = _getStatusColor(status);
+          final statusText = _getStatusText(status, l10n);
 
-          final statusText = _getStatusText(status);
+          final orderNumber = (data['orderNumber'] ?? '').toString();
 
-          final orderNumber = data['orderNumber'] ?? '';
-
-          final from = data['from'] ?? '';
-
-          final to = data['to'] ?? '';
-
+          final from = (data['from'] ?? '').toString();
+          final to = (data['to'] ?? '').toString();
           final price = data['totalPrice'] ?? 0;
 
           return SingleChildScrollView(
             padding: const EdgeInsets.all(16),
-
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-
               children: [
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-
-                    children: [
-                      Text(
-                        orderNumber,
-                        style: const TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-
-                      const SizedBox(height: 12),
-
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 7,
-                        ),
-
-                        decoration: BoxDecoration(
-                          color: statusColor.withValues(alpha: 0.12),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-
-                        child: Text(
-                          statusText,
-                          style: TextStyle(
-                            color: statusColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                OrderStatusCard(
+                  orderNumber: orderNumber,
+                  statusText: statusText,
+                  statusColor: statusColor,
                 ),
-
                 const SizedBox(height: 20),
-
-                const Text(
-                  'تفاصيل الرحلة',
-                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.w900),
-                ),
-
-                const SizedBox(height: 12),
-
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-
-                  child: Column(
-                    children: [
-                      _LocationRow(title: 'من', value: from),
-
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 12),
-                        child: Divider(),
-                      ),
-
-                      _LocationRow(title: 'إلى', value: to),
-                    ],
-                  ),
-                ),
-
+                OrderTripDetails(from: from, to: to),
                 const SizedBox(height: 20),
-
-                const Text(
-                  'السعر',
-                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.w900),
-                ),
-
-                const SizedBox(height: 12),
-
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(20),
-
-                  decoration: BoxDecoration(
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                    children: [
-                      const Text(
-                        'إجمالي الطلب',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-
-                      Text(
-                        '$price جنيه',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
+                OrderPriceCard(price: price),
                 const SizedBox(height: 20),
-
-               OrderTimeline(
+                OrderTimeline(
                   status: status,
                   createdAt: data['createdAt'],
                   inProgressAt: data['inProgressAt'],
@@ -253,45 +152,6 @@ class OrderDetailsView extends StatelessWidget {
           );
         },
       ),
-    );
-  }
-}
-
-class _LocationRow extends StatelessWidget {
-  const _LocationRow({required this.title, required this.value});
-
-  final String title;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Icon(Icons.location_on, color: AppColors.primary, size: 28),
-
-        const SizedBox(width: 12),
-
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                color: AppColors.grey.withOpacity(0.8),
-                fontSize: 13,
-              ),
-            ),
-
-            const SizedBox(height: 3),
-
-            Text(
-              value,
-              style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ],
     );
   }
 }

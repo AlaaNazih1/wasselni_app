@@ -271,4 +271,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get hintPhoneNumber => '01XXXXXXXXX';
+
+  @override
+  String get orderData => 'Order Details';
+
+  @override
+  String get orderNotFound => 'Order not found';
+
+  @override
+  String get unknownStatus => 'Unknown';
+
+  @override
+  String get statusPending => 'Order Received';
+
+  @override
+  String get statusInProgress => 'In Progress';
+
+  @override
+  String get statusDelivered => 'Delivered';
+
+  @override
+  String get statusCancelled => 'Cancelled';
+
+  @override
+  String get tripDetails => 'Trip Details';
+
+  @override
+  String get from => 'From';
+
+  @override
+  String get to => 'To';
+
+  @override
+  String get price => 'Price';
+
+  @override
+  String get totalOrder => 'Total Order';
 }

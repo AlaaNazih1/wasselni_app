@@ -188,6 +188,18 @@
   "register": "Create Account",
   "alreadyHaveAccount": "Already have an account? Login",
   "accountCreatedSuccessfully": "Account created successfully",
-  "hintPhoneNumber": "01XXXXXXXXX"
+  "hintPhoneNumber": "01XXXXXXXXX",
+    "orderData": "Order Details",
+  "orderNotFound": "Order not found",
+  "unknownStatus": "Unknown",
+  "statusPending": "Order Received",
+  "statusInProgress": "In Progress",
+  "statusDelivered": "Delivered",
+  "statusCancelled": "Cancelled",
+  "tripDetails": "Trip Details",
+  "from": "From",
+  "to": "To",
+  "price": "Price",
+  "totalOrder": "Total Order"
 }
 

@@ -271,4 +271,40 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get hintPhoneNumber => '01XXXXXXXXX';
+
+  @override
+  String get orderData => 'بيانات الطلب';
+
+  @override
+  String get orderNotFound => 'الطلب غير موجود';
+
+  @override
+  String get unknownStatus => 'غير معروف';
+
+  @override
+  String get statusPending => 'تم استلام الطلب';
+
+  @override
+  String get statusInProgress => 'في الطريق';
+
+  @override
+  String get statusDelivered => 'تم التسليم';
+
+  @override
+  String get statusCancelled => 'ملغي';
+
+  @override
+  String get tripDetails => 'تفاصيل الرحلة';
+
+  @override
+  String get from => 'من';
+
+  @override
+  String get to => 'إلى';
+
+  @override
+  String get price => 'السعر';
+
+  @override
+  String get totalOrder => 'إجمالي الطلب';
 }
