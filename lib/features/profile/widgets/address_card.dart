@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../../core/theme/app_colors.dart';
+
+import 'package:wasselni/core/theme/app_colors.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 class AddressCard extends StatelessWidget {
   const AddressCard({
@@ -19,6 +21,8 @@ class AddressCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
@@ -33,7 +37,6 @@ class AddressCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              // Address Icon
               Container(
                 width: 46,
                 height: 46,
@@ -43,17 +46,14 @@ class AddressCard extends StatelessWidget {
                 ),
                 child: Icon(icon, color: AppColors.black, size: 23),
               ),
-
               const SizedBox(width: 12),
-
-              // Address Information
               Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       title,
-                      textAlign: TextAlign.right,
+                      textAlign: TextAlign.start,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w900,
@@ -63,7 +63,7 @@ class AddressCard extends StatelessWidget {
                     const SizedBox(height: 5),
                     Text(
                       address,
-                      textAlign: TextAlign.right,
+                      textAlign: TextAlign.start,
                       style: const TextStyle(
                         fontSize: 13,
                         color: AppColors.grey,
@@ -75,31 +75,25 @@ class AddressCard extends StatelessWidget {
               ),
             ],
           ),
-
           const SizedBox(height: 14),
-
           const Divider(height: 1, color: Colors.black12),
-
           const SizedBox(height: 10),
-
           Row(
             children: [
               Expanded(
                 child: TextButton.icon(
                   onPressed: onDelete,
                   icon: const Icon(Icons.delete_outline, size: 18),
-                  label: const Text('حذف'),
+                  label: Text(l10n.delete),
                   style: TextButton.styleFrom(foregroundColor: AppColors.error),
                 ),
               ),
-
               Container(width: 1, height: 24, color: Colors.black12),
-
               Expanded(
                 child: TextButton.icon(
                   onPressed: onEdit,
                   icon: const Icon(Icons.edit_outlined, size: 18),
-                  label: const Text('تعديل'),
+                  label: Text(l10n.edit),
                   style: TextButton.styleFrom(foregroundColor: AppColors.black),
                 ),
               ),

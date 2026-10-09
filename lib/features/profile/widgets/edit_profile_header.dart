@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 import '../../../../core/theme/app_colors.dart';
 
 class EditProfileHeader extends StatelessWidget {
@@ -6,6 +8,8 @@ class EditProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
@@ -39,9 +43,9 @@ class EditProfileHeader extends StatelessWidget {
 
             const SizedBox(width: 12),
 
-            const Expanded(
+             Expanded(
               child: Text(
-                'تعديل البيانات',
+                l10n.editProfile,
                 textAlign: TextAlign.right,
                 style: TextStyle(
                   fontSize: 22,

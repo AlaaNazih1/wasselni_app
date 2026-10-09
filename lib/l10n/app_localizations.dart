@@ -691,6 +691,366 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'إجمالي الطلب'**
   String get totalOrder;
+
+  /// Settings label
+  ///
+  /// In ar, this message translates to:
+  /// **'الإعدادات'**
+  String get settings;
+
+  /// Edit profile action
+  ///
+  /// In ar, this message translates to:
+  /// **'تعديل البيانات'**
+  String get editProfile;
+
+  /// My addresses label
+  ///
+  /// In ar, this message translates to:
+  /// **'عناويني'**
+  String get myAddresses;
+
+  /// Help label
+  ///
+  /// In ar, this message translates to:
+  /// **'المساعدة'**
+  String get help;
+
+  /// Language label
+  ///
+  /// In ar, this message translates to:
+  /// **'اللغة'**
+  String get language;
+
+  /// Edit address action
+  ///
+  /// In ar, this message translates to:
+  /// **'تعديل العنوان'**
+  String get editAddress;
+
+  /// Add address action
+  ///
+  /// In ar, this message translates to:
+  /// **'إضافة عنوان'**
+  String get addAddress;
+
+  /// Address name label
+  ///
+  /// In ar, this message translates to:
+  /// **'اسم العنوان'**
+  String get addressName;
+
+  /// Address name input hint
+  ///
+  /// In ar, this message translates to:
+  /// **'مثال: المنزل'**
+  String get addressNameHint;
+
+  /// Address name input prompt
+  ///
+  /// In ar, this message translates to:
+  /// **'من فضلك أدخل اسم العنوان'**
+  String get enterAddressName;
+
+  /// Address type label
+  ///
+  /// In ar, this message translates to:
+  /// **'نوع العنوان'**
+  String get addressType;
+
+  /// Home address type
+  ///
+  /// In ar, this message translates to:
+  /// **'المنزل'**
+  String get addressTypeHome;
+
+  /// Work address type
+  ///
+  /// In ar, this message translates to:
+  /// **'العمل'**
+  String get addressTypeWork;
+
+  /// Other address type
+  ///
+  /// In ar, this message translates to:
+  /// **'أخرى'**
+  String get addressTypeOther;
+
+  /// Detailed address label
+  ///
+  /// In ar, this message translates to:
+  /// **'العنوان بالتفصيل'**
+  String get detailedAddress;
+
+  /// Detailed address input hint
+  ///
+  /// In ar, this message translates to:
+  /// **'مثال: ديروط - أسيوط'**
+  String get detailedAddressHint;
+
+  /// Detailed address input prompt
+  ///
+  /// In ar, this message translates to:
+  /// **'من فضلك أدخل العنوان'**
+  String get enterDetailedAddress;
+
+  /// Message shown while saving an address
+  ///
+  /// In ar, this message translates to:
+  /// **'جاري الحفظ...'**
+  String get savingAddress;
+
+  /// Save address action
+  ///
+  /// In ar, this message translates to:
+  /// **'حفظ العنوان'**
+  String get saveAddress;
+
+  /// Address update success message
+  ///
+  /// In ar, this message translates to:
+  /// **'تم تعديل العنوان بنجاح'**
+  String get addressUpdatedSuccessfully;
+
+  /// Address addition success message
+  ///
+  /// In ar, this message translates to:
+  /// **'تم إضافة العنوان بنجاح'**
+  String get addressAddedSuccessfully;
+
+  /// Saved addresses section title
+  ///
+  /// In ar, this message translates to:
+  /// **'العناوين المحفوظة'**
+  String get savedAddresses;
+
+  /// Error message shown when saved addresses cannot be loaded
+  ///
+  /// In ar, this message translates to:
+  /// **'حدث خطأ في تحميل العناوين'**
+  String get addressesLoadError;
+
+  /// Message shown when there are no saved addresses
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد عناوين محفوظة'**
+  String get noSavedAddresses;
+
+  /// Delete address action
+  ///
+  /// In ar, this message translates to:
+  /// **'حذف العنوان'**
+  String get deleteAddress;
+
+  /// Confirmation prompt for deleting an address
+  ///
+  /// In ar, this message translates to:
+  /// **'هل أنت متأكد من حذف هذا العنوان؟'**
+  String get confirmDeleteAddress;
+
+  /// Address deletion success message
+  ///
+  /// In ar, this message translates to:
+  /// **'تم حذف العنوان بنجاح'**
+  String get addressDeletedSuccessfully;
+
+  /// Delete action
+  ///
+  /// In ar, this message translates to:
+  /// **'حذف'**
+  String get delete;
+
+  /// Frequently asked questions section title
+  ///
+  /// In ar, this message translates to:
+  /// **'الأسئلة الشائعة'**
+  String get faqTitle;
+
+  /// FAQ question about creating a new order
+  ///
+  /// In ar, this message translates to:
+  /// **'إزاي أعمل طلب جديد؟'**
+  String get faqCreateOrderQuestion;
+
+  /// FAQ answer about creating a new order
+  ///
+  /// In ar, this message translates to:
+  /// **'اختار الخدمة اللي محتاجها من الصفحة الرئيسية، وبعدها أدخل تفاصيل الطلب والعنوان وأكد الطلب.'**
+  String get faqCreateOrderAnswer;
+
+  /// FAQ question about tracking an order
+  ///
+  /// In ar, this message translates to:
+  /// **'إزاي أتابع طلبي؟'**
+  String get faqTrackOrderQuestion;
+
+  /// FAQ answer about tracking an order
+  ///
+  /// In ar, this message translates to:
+  /// **'تقدر تتابع حالة طلبك من صفحة تتبع الطلب وتشوف آخر تحديثات الطلب والمندوب.'**
+  String get faqTrackOrderAnswer;
+
+  /// FAQ question about editing profile information
+  ///
+  /// In ar, this message translates to:
+  /// **'إزاي أعدل بيانات حسابي؟'**
+  String get faqEditProfileQuestion;
+
+  /// FAQ answer about editing profile information
+  ///
+  /// In ar, this message translates to:
+  /// **'ادخل على حسابي ثم اختار تعديل البيانات، وبعدها عدّل البيانات واضغط حفظ التعديلات.'**
+  String get faqEditProfileAnswer;
+
+  /// FAQ question about adding a new address
+  ///
+  /// In ar, this message translates to:
+  /// **'إزاي أضيف عنوان جديد؟'**
+  String get faqAddAddressQuestion;
+
+  /// FAQ answer about adding a new address
+  ///
+  /// In ar, this message translates to:
+  /// **'من حسابي اختار عناويني، وبعدها اضغط على إضافة عنوان جديد.'**
+  String get faqAddAddressAnswer;
+
+  /// FAQ question about problems with an order
+  ///
+  /// In ar, this message translates to:
+  /// **'ماذا أفعل لو عندي مشكلة في الطلب؟'**
+  String get faqOrderProblemQuestion;
+
+  /// FAQ answer about problems with an order
+  ///
+  /// In ar, this message translates to:
+  /// **'تقدر تتواصل مع خدمة العملاء من خلال وسائل التواصل الموجودة بالأسفل.'**
+  String get faqOrderProblemAnswer;
+
+  /// Contact us section or action
+  ///
+  /// In ar, this message translates to:
+  /// **'تواصل معنا'**
+  String get contactUs;
+
+  /// Action to call support
+  ///
+  /// In ar, this message translates to:
+  /// **'اتصل بنا'**
+  String get callUs;
+
+  /// Support team working hours
+  ///
+  /// In ar, this message translates to:
+  /// **'متاح يوميًا من 9 ص إلى 10 م'**
+  String get supportWorkingHours;
+
+  /// Action to chat with support
+  ///
+  /// In ar, this message translates to:
+  /// **'المحادثة مع الدعم'**
+  String get chatWithSupport;
+
+  /// Action to contact the support team directly
+  ///
+  /// In ar, this message translates to:
+  /// **'تواصل مع فريق الدعم مباشرة'**
+  String get contactSupportDirectly;
+
+  /// Error message shown when notifications fail to load
+  ///
+  /// In ar, this message translates to:
+  /// **'حدث خطأ في تحميل الإشعارات'**
+  String get notificationsLoadError;
+
+  /// Message shown when there are no notifications
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد إشعارات'**
+  String get noNotifications;
+
+  /// Relative time label for an event that happened moments ago
+  ///
+  /// In ar, this message translates to:
+  /// **'منذ لحظات'**
+  String get justNow;
+
+  /// Relative time label for an event that happened yesterday
+  ///
+  /// In ar, this message translates to:
+  /// **'أمس'**
+  String get yesterday;
+
+  /// No description provided for @minutesAgo.
+  ///
+  /// In ar, this message translates to:
+  /// **'{count, plural, zero{منذ لحظات} one{منذ دقيقة واحدة} two{منذ دقيقتين} few{منذ # دقائق} many{منذ # دقيقة} other{منذ # دقيقة}}'**
+  String minutesAgo(int count);
+
+  /// No description provided for @hoursAgo.
+  ///
+  /// In ar, this message translates to:
+  /// **'{count, plural, one{منذ ساعة واحدة} two{منذ ساعتين} few{منذ # ساعات} many{منذ # ساعة} other{منذ # ساعة}}'**
+  String hoursAgo(int count);
+
+  /// No description provided for @daysAgo.
+  ///
+  /// In ar, this message translates to:
+  /// **'{count, plural, one{منذ يوم واحد} two{منذ يومين} few{منذ # أيام} many{منذ # يومًا} other{منذ # يوم}}'**
+  String daysAgo(int count);
+
+  /// Add new address action
+  ///
+  /// In ar, this message translates to:
+  /// **'إضافة عنوان جديد'**
+  String get addNewAddress;
+
+  /// Edit action
+  ///
+  /// In ar, this message translates to:
+  /// **'تعديل'**
+  String get edit;
+
+  /// Personal information section title
+  ///
+  /// In ar, this message translates to:
+  /// **'البيانات الشخصية'**
+  String get personalInformation;
+
+  /// Full name input prompt
+  ///
+  /// In ar, this message translates to:
+  /// **'من فضلك أدخل الاسم'**
+  String get enterFullName;
+
+  /// Saving status message
+  ///
+  /// In ar, this message translates to:
+  /// **'جاري الحفظ...'**
+  String get saving;
+
+  /// Save changes action
+  ///
+  /// In ar, this message translates to:
+  /// **'حفظ التعديلات'**
+  String get saveChanges;
+
+  /// Profile update success message
+  ///
+  /// In ar, this message translates to:
+  /// **'تم حفظ البيانات بنجاح'**
+  String get profileUpdatedSuccessfully;
+
+  /// No description provided for @imagePickerError.
+  ///
+  /// In ar, this message translates to:
+  /// **'حدث خطأ أثناء اختيار الصورة: {error}'**
+  String imagePickerError(String error);
+
+  /// Message shown when user profile data is unavailable
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد بيانات للمستخدم'**
+  String get profileNoData;
 }
 
 class _AppLocalizationsDelegate

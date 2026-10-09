@@ -307,4 +307,225 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get totalOrder => 'إجمالي الطلب';
+
+  @override
+  String get settings => 'الإعدادات';
+
+  @override
+  String get editProfile => 'تعديل البيانات';
+
+  @override
+  String get myAddresses => 'عناويني';
+
+  @override
+  String get help => 'المساعدة';
+
+  @override
+  String get language => 'اللغة';
+
+  @override
+  String get editAddress => 'تعديل العنوان';
+
+  @override
+  String get addAddress => 'إضافة عنوان';
+
+  @override
+  String get addressName => 'اسم العنوان';
+
+  @override
+  String get addressNameHint => 'مثال: المنزل';
+
+  @override
+  String get enterAddressName => 'من فضلك أدخل اسم العنوان';
+
+  @override
+  String get addressType => 'نوع العنوان';
+
+  @override
+  String get addressTypeHome => 'المنزل';
+
+  @override
+  String get addressTypeWork => 'العمل';
+
+  @override
+  String get addressTypeOther => 'أخرى';
+
+  @override
+  String get detailedAddress => 'العنوان بالتفصيل';
+
+  @override
+  String get detailedAddressHint => 'مثال: ديروط - أسيوط';
+
+  @override
+  String get enterDetailedAddress => 'من فضلك أدخل العنوان';
+
+  @override
+  String get savingAddress => 'جاري الحفظ...';
+
+  @override
+  String get saveAddress => 'حفظ العنوان';
+
+  @override
+  String get addressUpdatedSuccessfully => 'تم تعديل العنوان بنجاح';
+
+  @override
+  String get addressAddedSuccessfully => 'تم إضافة العنوان بنجاح';
+
+  @override
+  String get savedAddresses => 'العناوين المحفوظة';
+
+  @override
+  String get addressesLoadError => 'حدث خطأ في تحميل العناوين';
+
+  @override
+  String get noSavedAddresses => 'لا توجد عناوين محفوظة';
+
+  @override
+  String get deleteAddress => 'حذف العنوان';
+
+  @override
+  String get confirmDeleteAddress => 'هل أنت متأكد من حذف هذا العنوان؟';
+
+  @override
+  String get addressDeletedSuccessfully => 'تم حذف العنوان بنجاح';
+
+  @override
+  String get delete => 'حذف';
+
+  @override
+  String get faqTitle => 'الأسئلة الشائعة';
+
+  @override
+  String get faqCreateOrderQuestion => 'إزاي أعمل طلب جديد؟';
+
+  @override
+  String get faqCreateOrderAnswer =>
+      'اختار الخدمة اللي محتاجها من الصفحة الرئيسية، وبعدها أدخل تفاصيل الطلب والعنوان وأكد الطلب.';
+
+  @override
+  String get faqTrackOrderQuestion => 'إزاي أتابع طلبي؟';
+
+  @override
+  String get faqTrackOrderAnswer =>
+      'تقدر تتابع حالة طلبك من صفحة تتبع الطلب وتشوف آخر تحديثات الطلب والمندوب.';
+
+  @override
+  String get faqEditProfileQuestion => 'إزاي أعدل بيانات حسابي؟';
+
+  @override
+  String get faqEditProfileAnswer =>
+      'ادخل على حسابي ثم اختار تعديل البيانات، وبعدها عدّل البيانات واضغط حفظ التعديلات.';
+
+  @override
+  String get faqAddAddressQuestion => 'إزاي أضيف عنوان جديد؟';
+
+  @override
+  String get faqAddAddressAnswer =>
+      'من حسابي اختار عناويني، وبعدها اضغط على إضافة عنوان جديد.';
+
+  @override
+  String get faqOrderProblemQuestion => 'ماذا أفعل لو عندي مشكلة في الطلب؟';
+
+  @override
+  String get faqOrderProblemAnswer =>
+      'تقدر تتواصل مع خدمة العملاء من خلال وسائل التواصل الموجودة بالأسفل.';
+
+  @override
+  String get contactUs => 'تواصل معنا';
+
+  @override
+  String get callUs => 'اتصل بنا';
+
+  @override
+  String get supportWorkingHours => 'متاح يوميًا من 9 ص إلى 10 م';
+
+  @override
+  String get chatWithSupport => 'المحادثة مع الدعم';
+
+  @override
+  String get contactSupportDirectly => 'تواصل مع فريق الدعم مباشرة';
+
+  @override
+  String get notificationsLoadError => 'حدث خطأ في تحميل الإشعارات';
+
+  @override
+  String get noNotifications => 'لا توجد إشعارات';
+
+  @override
+  String get justNow => 'منذ لحظات';
+
+  @override
+  String get yesterday => 'أمس';
+
+  @override
+  String minutesAgo(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'منذ # دقيقة',
+      many: 'منذ # دقيقة',
+      few: 'منذ # دقائق',
+      two: 'منذ دقيقتين',
+      one: 'منذ دقيقة واحدة',
+      zero: 'منذ لحظات',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String hoursAgo(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'منذ # ساعة',
+      many: 'منذ # ساعة',
+      few: 'منذ # ساعات',
+      two: 'منذ ساعتين',
+      one: 'منذ ساعة واحدة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String daysAgo(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'منذ # يوم',
+      many: 'منذ # يومًا',
+      few: 'منذ # أيام',
+      two: 'منذ يومين',
+      one: 'منذ يوم واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get addNewAddress => 'إضافة عنوان جديد';
+
+  @override
+  String get edit => 'تعديل';
+
+  @override
+  String get personalInformation => 'البيانات الشخصية';
+
+  @override
+  String get enterFullName => 'من فضلك أدخل الاسم';
+
+  @override
+  String get saving => 'جاري الحفظ...';
+
+  @override
+  String get saveChanges => 'حفظ التعديلات';
+
+  @override
+  String get profileUpdatedSuccessfully => 'تم حفظ البيانات بنجاح';
+
+  @override
+  String imagePickerError(String error) {
+    return 'حدث خطأ أثناء اختيار الصورة: $error';
+  }
+
+  @override
+  String get profileNoData => 'لا توجد بيانات للمستخدم';
 }

@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'package:wasselni/core/theme/app_colors.dart';
+import 'package:wasselni/core/widgets/custom_button.dart';
+import 'package:wasselni/core/widgets/custom_text_form_field.dart';
 import 'package:wasselni/features/profile/presentation/controllers/profile_controller.dart';
-
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/widgets/custom_button.dart';
-import '../../../../core/widgets/custom_text_form_field.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 class EditProfileForm extends ConsumerStatefulWidget {
   const EditProfileForm({super.key});
@@ -47,7 +47,6 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
         _nameController.text = profile['name'] ?? '';
         _phoneController.text = profile['phone'] ?? '';
         _emailController.text = profile['email'] ?? '';
-
         _currentImageBase64 = profile['profileImageBase64'];
       }
     } catch (e) {
@@ -70,6 +69,8 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
   }
 
   Future<void> _pickImage() async {
+    final l10n = AppLocalizations.of(context);
+
     try {
       final picker = ImagePicker();
 
@@ -80,9 +81,7 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
         maxHeight: 500,
       );
 
-      if (image == null) {
-        return;
-      }
+      if (image == null || !mounted) return;
 
       setState(() {
         _selectedImage = File(image.path);
@@ -92,7 +91,7 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('حدث خطأ أثناء اختيار الصورة: $e'),
+          content: Text(l10n.imagePickerError(e.toString())),
           backgroundColor: AppColors.error,
         ),
       );
@@ -100,9 +99,11 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
   }
 
   Future<void> _saveChanges() async {
-    if (!_formKey.currentState!.validate()) {
+    if (_isSaving || !_formKey.currentState!.validate()) {
       return;
     }
+
+    final l10n = AppLocalizations.of(context);
 
     setState(() {
       _isSaving = true;
@@ -111,26 +112,23 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
     try {
       final controller = ref.read(profileUpdateProvider);
 
-      // حفظ البيانات الشخصية
       await controller.updateProfile(
         name: _nameController.text.trim(),
         phone: _phoneController.text.trim(),
         email: _emailController.text.trim(),
       );
 
-      // حفظ الصورة لو المستخدم اختار صورة جديدة
       if (_selectedImage != null) {
         await controller.updateProfileImage(_selectedImage!);
       }
 
-      // تحديث البيانات
       ref.invalidate(profileProvider);
 
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('تم حفظ البيانات بنجاح'),
+        SnackBar(
+          content: Text(l10n.profileUpdatedSuccessfully),
           backgroundColor: AppColors.success,
         ),
       );
@@ -155,12 +153,10 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
   }
 
   ImageProvider? _getProfileImage() {
-    // الصورة الجديدة التي اختارها المستخدم
     if (_selectedImage != null) {
       return FileImage(_selectedImage!);
     }
 
-    // الصورة المحفوظة في Firestore
     if (_currentImageBase64 != null && _currentImageBase64!.isNotEmpty) {
       try {
         return MemoryImage(base64Decode(_currentImageBase64!));
@@ -174,6 +170,8 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     if (_isLoading) {
       return const Center(
         child: Padding(
@@ -207,7 +205,6 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
                           )
                         : null,
                   ),
-
                   Positioned(
                     bottom: 0,
                     right: 0,
@@ -231,10 +228,10 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
 
           const SizedBox(height: 25),
 
-          const Text(
-            'البيانات الشخصية',
-            textAlign: TextAlign.right,
-            style: TextStyle(
+          Text(
+            l10n.personalInformation,
+            textAlign: TextAlign.start,
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w900,
               color: AppColors.black,
@@ -245,15 +242,15 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
 
           CustomTextFormField(
             controller: _nameController,
-            hintText: 'الاسم بالكامل',
+            hintText: l10n.fullName,
             prefixIcon: const Icon(Icons.person_outline),
             validator: (value) {
               if (value == null || value.trim().isEmpty) {
-                return 'من فضلك أدخل الاسم';
+                return l10n.enterFullName;
               }
 
               if (value.trim().length < 3) {
-                return 'الاسم يجب أن يكون 3 أحرف على الأقل';
+                return l10n.nameMinLength;
               }
 
               return null;
@@ -264,16 +261,16 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
 
           CustomTextFormField(
             controller: _phoneController,
-            hintText: 'رقم الهاتف',
+            hintText: l10n.phoneNumber,
             prefixIcon: const Icon(Icons.phone_outlined),
             keyboardType: TextInputType.phone,
             validator: (value) {
               if (value == null || value.trim().isEmpty) {
-                return 'من فضلك أدخل رقم الهاتف';
+                return l10n.enterPhoneNumber;
               }
 
               if (value.trim().length != 11) {
-                return 'رقم الهاتف يجب أن يكون 11 رقم';
+                return l10n.phoneNumberMustBe11Digits;
               }
 
               return null;
@@ -284,16 +281,16 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
 
           CustomTextFormField(
             controller: _emailController,
-            hintText: 'البريد الإلكتروني',
+            hintText: l10n.email,
             prefixIcon: const Icon(Icons.email_outlined),
             keyboardType: TextInputType.emailAddress,
             validator: (value) {
               if (value == null || value.trim().isEmpty) {
-                return 'من فضلك أدخل البريد الإلكتروني';
+                return l10n.enterEmail;
               }
 
               if (!value.contains('@')) {
-                return 'البريد الإلكتروني غير صحيح';
+                return l10n.invalidEmail;
               }
 
               return null;
@@ -303,7 +300,7 @@ class _EditProfileFormState extends ConsumerState<EditProfileForm> {
           const SizedBox(height: 28),
 
           CustomButton(
-            text: _isSaving ? 'جاري الحفظ...' : 'حفظ التعديلات',
+            text: _isSaving ? l10n.saving : l10n.saveChanges,
             onPressed: _isSaving ? () {} : _saveChanges,
           ),
         ],

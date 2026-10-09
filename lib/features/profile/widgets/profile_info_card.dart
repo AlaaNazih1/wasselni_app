@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wasselni/features/profile/presentation/controllers/profile_controller.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 import '../../../../core/theme/app_colors.dart';
 
@@ -11,6 +12,7 @@ class ProfileInfoCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
     final profileAsync = ref.watch(profileProvider);
 
     return Container(
@@ -34,11 +36,11 @@ class ProfileInfoCard extends ConsumerWidget {
         },
 
         error: (error, stackTrace) {
-          return const SizedBox(
+          return  SizedBox(
             height: 180,
             child: Center(
               child: Text(
-                'حدث خطأ في تحميل البيانات',
+                l10n.profileLoadError,
                 style: TextStyle(
                   color: AppColors.error,
                   fontWeight: FontWeight.w600,
@@ -50,11 +52,11 @@ class ProfileInfoCard extends ConsumerWidget {
 
         data: (userData) {
           if (userData == null) {
-            return const SizedBox(
+            return  SizedBox(
               height: 180,
               child: Center(
                 child: Text(
-                  'لا توجد بيانات للمستخدم',
+                  l10n.profileNoData,
                   style: TextStyle(color: AppColors.grey),
                 ),
               ),

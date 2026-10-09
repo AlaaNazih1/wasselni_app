@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:wasselni/core/localization/language_controller.dart';
+import 'package:wasselni/core/theme/app_colors.dart';
 import 'package:wasselni/features/profile/widgets/language_header.dart';
 import 'package:wasselni/features/profile/widgets/language_option.dart';
-
-import '../../../../core/theme/app_colors.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 class LanguageView extends ConsumerWidget {
   const LanguageView({super.key});
@@ -12,6 +13,7 @@ class LanguageView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentLocale = ref.watch(languageProvider);
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -19,38 +21,42 @@ class LanguageView extends ConsumerWidget {
         child: CustomScrollView(
           slivers: [
             const LanguageHeader(),
-
             SliverPadding(
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 30),
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
-                  const Text(
-                    'اختر اللغة',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
+                  Text(
+                    l10n.chooseLanguage,
+                    textAlign: TextAlign.start,
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w900,
                       color: AppColors.black,
                     ),
                   ),
-
                   const SizedBox(height: 12),
-
                   LanguageOption(
-                    title: 'العربية',
-                    subtitle: 'العربية',
+                    title: l10n.arabic,
+                    subtitle: l10n.arabic,
                     isSelected: currentLocale.languageCode == 'ar',
                     onTap: () {
-                      ref.read(languageProvider.notifier).changeLanguage('ar');
+                      if (currentLocale.languageCode != 'ar') {
+                        ref
+                            .read(languageProvider.notifier)
+                            .changeLanguage('ar');
+                      }
                     },
                   ),
-
                   LanguageOption(
                     title: 'English',
-                    subtitle: 'English',
+                    subtitle: l10n.english,
                     isSelected: currentLocale.languageCode == 'en',
                     onTap: () {
-                      ref.read(languageProvider.notifier).changeLanguage('en');
+                      if (currentLocale.languageCode != 'en') {
+                        ref
+                            .read(languageProvider.notifier)
+                            .changeLanguage('en');
+                      }
                     },
                   ),
                 ]),

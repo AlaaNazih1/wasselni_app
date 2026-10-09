@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:wasselni/core/theme/app_colors.dart';
+import 'package:wasselni/features/profile/presentation/controllers/address_controller.dart';
+import 'package:wasselni/features/profile/presentation/views/add_edit_address_view.dart';
 import 'package:wasselni/features/profile/widgets/add_address_button.dart';
 import 'package:wasselni/features/profile/widgets/address_card.dart';
 import 'package:wasselni/features/profile/widgets/addresses_header.dart';
-
-import '../../../../core/theme/app_colors.dart';
-import '../controllers/address_controller.dart';
-import 'add_edit_address_view.dart';
+import 'package:wasselni/features/profile/widgets/delete_address_dialog.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 class AddressesView extends ConsumerWidget {
   const AddressesView({super.key});
@@ -31,35 +32,13 @@ class AddressesView extends ConsumerWidget {
     WidgetRef ref,
     String addressId,
   ) async {
-    final shouldDelete = await showDialog<bool>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('حذف العنوان', textAlign: TextAlign.right),
-          content: const Text(
-            'هل أنت متأكد من حذف هذا العنوان؟',
-            textAlign: TextAlign.right,
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: const Text('إلغاء'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context, true),
-              child: const Text(
-                'حذف',
-                style: TextStyle(color: AppColors.error),
-              ),
-            ),
-          ],
-        );
-      },
-    );
+    final shouldDelete = await DeleteAddressDialog.show(context);
 
-    if (shouldDelete != true) {
+    if (shouldDelete != true || !context.mounted) {
       return;
     }
+
+    final l10n = AppLocalizations.of(context);
 
     try {
       await ref
@@ -71,8 +50,8 @@ class AddressesView extends ConsumerWidget {
       if (!context.mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('تم حذف العنوان'),
+        SnackBar(
+          content: Text(l10n.addressDeletedSuccessfully),
           backgroundColor: AppColors.success,
         ),
       );
@@ -90,6 +69,7 @@ class AddressesView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
     final addressesAsync = ref.watch(addressesProvider);
 
     return Scaffold(
@@ -98,23 +78,20 @@ class AddressesView extends ConsumerWidget {
         child: CustomScrollView(
           slivers: [
             const AddressesHeader(),
-
             SliverPadding(
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 30),
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
-                  const Text(
-                    'العناوين المحفوظة',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
+                  Text(
+                    l10n.savedAddresses,
+                    textAlign: TextAlign.start,
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w900,
                       color: AppColors.black,
                     ),
                   ),
-
                   const SizedBox(height: 12),
-
                   addressesAsync.when(
                     loading: () => const Padding(
                       padding: EdgeInsets.all(30),
@@ -124,24 +101,22 @@ class AddressesView extends ConsumerWidget {
                         ),
                       ),
                     ),
-
-                    error: (error, stackTrace) => const Padding(
-                      padding: EdgeInsets.all(20),
+                    error: (error, stackTrace) => Padding(
+                      padding: const EdgeInsets.all(20),
                       child: Text(
-                        'حدث خطأ في تحميل العناوين',
+                        l10n.addressesLoadError,
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: AppColors.error),
+                        style: const TextStyle(color: AppColors.error),
                       ),
                     ),
-
                     data: (addresses) {
                       if (addresses.isEmpty) {
-                        return const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 30),
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 30),
                           child: Text(
-                            'لا توجد عناوين محفوظة',
+                            l10n.noSavedAddresses,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: AppColors.grey,
                               fontSize: 14,
                             ),
@@ -151,12 +126,12 @@ class AddressesView extends ConsumerWidget {
 
                       return Column(
                         children: addresses.map((address) {
-                          final type = address['type'] ?? 'home';
+                          final type = (address['type'] ?? 'home').toString();
 
                           return AddressCard(
                             icon: _getAddressIcon(type),
-                            title: address['title'] ?? '',
-                            address: address['address'] ?? '',
+                            title: (address['title'] ?? '').toString(),
+                            address: (address['address'] ?? '').toString(),
                             onEdit: () {
                               Navigator.push(
                                 context,
@@ -167,16 +142,18 @@ class AddressesView extends ConsumerWidget {
                               );
                             },
                             onDelete: () {
-                              _deleteAddress(context, ref, address['id']);
+                              _deleteAddress(
+                                context,
+                                ref,
+                                address['id'].toString(),
+                              );
                             },
                           );
                         }).toList(),
                       );
                     },
                   ),
-
                   const SizedBox(height: 10),
-
                   AddAddressButton(
                     onTap: () {
                       Navigator.push(

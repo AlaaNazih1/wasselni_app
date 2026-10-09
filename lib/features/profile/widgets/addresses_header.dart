@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import '../../../../core/theme/app_colors.dart';
+
+import 'package:wasselni/core/theme/app_colors.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 class AddressesHeader extends StatelessWidget {
   const AddressesHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
@@ -34,21 +38,18 @@ class AddressesHeader extends StatelessWidget {
                 ),
               ),
             ),
-
             const SizedBox(width: 12),
-
-            const Expanded(
+            Expanded(
               child: Text(
-                'عناويني',
-                textAlign: TextAlign.right,
-                style: TextStyle(
+                l10n.myAddresses,
+                textAlign: TextAlign.start,
+                style: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w900,
                   color: AppColors.black,
                 ),
               ),
             ),
-
             const SizedBox(width: 42),
           ],
         ),

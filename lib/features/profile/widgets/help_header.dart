@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 import '../../../../core/theme/app_colors.dart';
 
 class HelpHeader extends StatelessWidget {
@@ -6,6 +7,8 @@ class HelpHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        final l10n = AppLocalizations.of(context);
+
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
@@ -37,9 +40,9 @@ class HelpHeader extends StatelessWidget {
 
             const SizedBox(width: 12),
 
-            const Expanded(
+             Expanded(
               child: Text(
-                'المساعدة',
+                l10n.help,
                 textAlign: TextAlign.right,
                 style: TextStyle(
                   fontSize: 22,

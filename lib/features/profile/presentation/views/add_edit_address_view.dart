@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/widgets/custom_button.dart';
-import '../../../../core/widgets/custom_text_form_field.dart';
-import '../controllers/address_controller.dart';
+import 'package:wasselni/core/theme/app_colors.dart';
+import 'package:wasselni/core/widgets/custom_text_form_field.dart';
+import 'package:wasselni/features/profile/presentation/controllers/address_controller.dart';
+import 'package:wasselni/features/profile/widgets/address_form_actions.dart';
+import 'package:wasselni/features/profile/widgets/address_form_field_title.dart';
+import 'package:wasselni/features/profile/widgets/address_type_dropdown.dart';
+import 'package:wasselni/l10n/app_localizations.dart';
 
 class AddEditAddressView extends ConsumerStatefulWidget {
   const AddEditAddressView({super.key, this.address});
@@ -31,14 +34,16 @@ class _AddEditAddressViewState extends ConsumerState<AddEditAddressView> {
     super.initState();
 
     _titleController = TextEditingController(
-      text: widget.address?['title'] ?? '',
+      text: widget.address?['title']?.toString() ?? '',
     );
 
     _addressController = TextEditingController(
-      text: widget.address?['address'] ?? '',
+      text: widget.address?['address']?.toString() ?? '',
     );
 
-    _type = widget.address?['type'] ?? 'home';
+    final savedType = widget.address?['type']?.toString() ?? 'home';
+
+    _type = ['home', 'work', 'other'].contains(savedType) ? savedType : 'home';
   }
 
   @override
@@ -49,9 +54,13 @@ class _AddEditAddressViewState extends ConsumerState<AddEditAddressView> {
   }
 
   Future<void> _save() async {
+    if (_isSaving) return;
+
     if (!_formKey.currentState!.validate()) {
       return;
     }
+
+    final l10n = AppLocalizations.of(context);
 
     setState(() {
       _isSaving = true;
@@ -83,8 +92,8 @@ class _AddEditAddressViewState extends ConsumerState<AddEditAddressView> {
         SnackBar(
           content: Text(
             widget.isEditing
-                ? 'تم تعديل العنوان بنجاح'
-                : 'تم إضافة العنوان بنجاح',
+                ? l10n.addressUpdatedSuccessfully
+                : l10n.addressAddedSuccessfully,
           ),
           backgroundColor: AppColors.success,
         ),
@@ -111,20 +120,22 @@ class _AddEditAddressViewState extends ConsumerState<AddEditAddressView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.background,
         elevation: 0,
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: AppColors.black),
         title: Text(
-          widget.isEditing ? 'تعديل العنوان' : 'إضافة عنوان',
+          widget.isEditing ? l10n.editAddress : l10n.addAddress,
           style: const TextStyle(
             color: AppColors.black,
             fontWeight: FontWeight.w900,
           ),
         ),
-        centerTitle: true,
-        iconTheme: const IconThemeData(color: AppColors.black),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -134,91 +145,48 @@ class _AddEditAddressViewState extends ConsumerState<AddEditAddressView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Text(
-                  'اسم العنوان',
-                  textAlign: TextAlign.right,
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
-                ),
-
+                AddressFormFieldTitle(title: l10n.addressName),
                 const SizedBox(height: 8),
-
                 CustomTextFormField(
                   controller: _titleController,
-                  hintText: 'مثال: المنزل',
+                  hintText: l10n.addressNameHint,
                   prefixIcon: const Icon(Icons.label_outline),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'من فضلك أدخل اسم العنوان';
+                      return l10n.enterAddressName;
                     }
 
                     return null;
                   },
                 ),
-
                 const SizedBox(height: 18),
-
-                const Text(
-                  'نوع العنوان',
-                  textAlign: TextAlign.right,
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
-                ),
-
+                AddressFormFieldTitle(title: l10n.addressType),
                 const SizedBox(height: 8),
-
-                DropdownButtonFormField<String>(
+                AddressTypeDropdown(
                   value: _type,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.location_on_outlined),
-                    filled: true,
-                    fillColor: AppColors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(14),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                  items: const [
-                    DropdownMenuItem(value: 'home', child: Text('المنزل')),
-                    DropdownMenuItem(value: 'work', child: Text('العمل')),
-                    DropdownMenuItem(value: 'other', child: Text('أخرى')),
-                  ],
                   onChanged: (value) {
-                    if (value != null) {
-                      setState(() {
-                        _type = value;
-                      });
-                    }
+                    setState(() {
+                      _type = value;
+                    });
                   },
                 ),
-
                 const SizedBox(height: 18),
-
-                const Text(
-                  'العنوان بالتفصيل',
-                  textAlign: TextAlign.right,
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
-                ),
-
+                AddressFormFieldTitle(title: l10n.detailedAddress),
                 const SizedBox(height: 8),
-
                 CustomTextFormField(
                   controller: _addressController,
-                  hintText: 'مثال: ديروط - أسيوط',
+                  hintText: l10n.detailedAddressHint,
                   prefixIcon: const Icon(Icons.home_outlined),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'من فضلك أدخل العنوان';
+                      return l10n.enterDetailedAddress;
                     }
 
                     return null;
                   },
                 ),
-
                 const SizedBox(height: 30),
-
-                CustomButton(
-                  text: _isSaving ? 'جاري الحفظ...' : 'حفظ العنوان',
-                  onPressed: _isSaving ? () {} : _save,
-                ),
+                AddressFormActions(isSaving: _isSaving, onSave: _save),
               ],
             ),
           ),

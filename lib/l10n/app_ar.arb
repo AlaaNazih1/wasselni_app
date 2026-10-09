@@ -203,7 +203,153 @@
   "price": "السعر",
   "@price": {"description": "Price label"},
   "totalOrder": "إجمالي الطلب"
-  ,"@totalOrder": {"description": "Total order amount label"}
+  ,"@totalOrder": {"description": "Total order amount label"},
+    "settings": "الإعدادات",
+    "@settings": {"description": "Settings label"},
+    "editProfile": "تعديل البيانات",
+    "@editProfile": {"description": "Edit profile action"},
+    "myAddresses": "عناويني",
+    "@myAddresses": {"description": "My addresses label"},
+    "help": "المساعدة",
+    "@help": {"description": "Help label"},
+    "language": "اللغة",
+    "@language": {"description": "Language label"},
+    "editAddress": "تعديل العنوان",
+    "@editAddress": {"description": "Edit address action"},
+  "addAddress": "إضافة عنوان",
+  "@addAddress": {"description": "Add address action"},
+  "addressName": "اسم العنوان",
+  "@addressName": {"description": "Address name label"},
+  "addressNameHint": "مثال: المنزل",
+  "@addressNameHint": {"description": "Address name input hint"},
+  "enterAddressName": "من فضلك أدخل اسم العنوان",
+  "@enterAddressName": {"description": "Address name input prompt"},
+  "addressType": "نوع العنوان",
+  "@addressType": {"description": "Address type label"},
+  "addressTypeHome": "المنزل",
+  "@addressTypeHome": {"description": "Home address type"},
+  "addressTypeWork": "العمل",
+  "@addressTypeWork": {"description": "Work address type"},
+  "addressTypeOther": "أخرى",
+  "@addressTypeOther": {"description": "Other address type"},
+  "detailedAddress": "العنوان بالتفصيل",
+  "@detailedAddress": {"description": "Detailed address label"},
+  "detailedAddressHint": "مثال: ديروط - أسيوط",
+  "@detailedAddressHint": {"description": "Detailed address input hint"},
+  "enterDetailedAddress": "من فضلك أدخل العنوان",
+  "@enterDetailedAddress": {"description": "Detailed address input prompt"},
+  "savingAddress": "جاري الحفظ...",
+  "@savingAddress": {"description": "Message shown while saving an address"},
+  "saveAddress": "حفظ العنوان",
+  "@saveAddress": {"description": "Save address action"},
+  "addressUpdatedSuccessfully": "تم تعديل العنوان بنجاح",
+  "@addressUpdatedSuccessfully": {"description": "Address update success message"},
+  "addressAddedSuccessfully": "تم إضافة العنوان بنجاح"
+  ,"@addressAddedSuccessfully": {"description": "Address addition success message"},
+  "savedAddresses": "العناوين المحفوظة",
+  "@savedAddresses": {"description": "Saved addresses section title"},
+  "addressesLoadError": "حدث خطأ في تحميل العناوين",
+  "@addressesLoadError": {"description": "Error message shown when saved addresses cannot be loaded"},
+  "noSavedAddresses": "لا توجد عناوين محفوظة",
+  "@noSavedAddresses": {"description": "Message shown when there are no saved addresses"},
+  "deleteAddress": "حذف العنوان",
+  "@deleteAddress": {"description": "Delete address action"},
+  "confirmDeleteAddress": "هل أنت متأكد من حذف هذا العنوان؟",
+  "@confirmDeleteAddress": {"description": "Confirmation prompt for deleting an address"},
+  "addressDeletedSuccessfully": "تم حذف العنوان بنجاح",
+  "@addressDeletedSuccessfully": {"description": "Address deletion success message"},
+  "delete": "حذف",
+  "@delete": {"description": "Delete action"},
+  "faqTitle": "الأسئلة الشائعة",
+  "@faqTitle": {"description": "Frequently asked questions section title"},
+  "faqCreateOrderQuestion": "إزاي أعمل طلب جديد؟",
+  "@faqCreateOrderQuestion": {"description": "FAQ question about creating a new order"},
+  "faqCreateOrderAnswer": "اختار الخدمة اللي محتاجها من الصفحة الرئيسية، وبعدها أدخل تفاصيل الطلب والعنوان وأكد الطلب.",
+  "@faqCreateOrderAnswer": {"description": "FAQ answer about creating a new order"},
+  "faqTrackOrderQuestion": "إزاي أتابع طلبي؟",
+  "@faqTrackOrderQuestion": {"description": "FAQ question about tracking an order"},
+  "faqTrackOrderAnswer": "تقدر تتابع حالة طلبك من صفحة تتبع الطلب وتشوف آخر تحديثات الطلب والمندوب.",
+  "@faqTrackOrderAnswer": {"description": "FAQ answer about tracking an order"},
+  "faqEditProfileQuestion": "إزاي أعدل بيانات حسابي؟",
+  "@faqEditProfileQuestion": {"description": "FAQ question about editing profile information"},
+  "faqEditProfileAnswer": "ادخل على حسابي ثم اختار تعديل البيانات، وبعدها عدّل البيانات واضغط حفظ التعديلات.",
+  "@faqEditProfileAnswer": {"description": "FAQ answer about editing profile information"},
+  "faqAddAddressQuestion": "إزاي أضيف عنوان جديد؟",
+  "@faqAddAddressQuestion": {"description": "FAQ question about adding a new address"},
+  "faqAddAddressAnswer": "من حسابي اختار عناويني، وبعدها اضغط على إضافة عنوان جديد.",
+  "@faqAddAddressAnswer": {"description": "FAQ answer about adding a new address"},
+  "faqOrderProblemQuestion": "ماذا أفعل لو عندي مشكلة في الطلب؟",
+  "@faqOrderProblemQuestion": {"description": "FAQ question about problems with an order"},
+  "faqOrderProblemAnswer": "تقدر تتواصل مع خدمة العملاء من خلال وسائل التواصل الموجودة بالأسفل.",
+  "@faqOrderProblemAnswer": {"description": "FAQ answer about problems with an order"},
+  "contactUs": "تواصل معنا",
+  "@contactUs": {"description": "Contact us section or action"},
+  "callUs": "اتصل بنا",
+  "@callUs": {"description": "Action to call support"},
+  "supportWorkingHours": "متاح يوميًا من 9 ص إلى 10 م",
+  "@supportWorkingHours": {"description": "Support team working hours"},
+  "chatWithSupport": "المحادثة مع الدعم",
+  "@chatWithSupport": {"description": "Action to chat with support"},
+  "contactSupportDirectly": "تواصل مع فريق الدعم مباشرة"
+  ,"@contactSupportDirectly": {"description": "Action to contact the support team directly"},
+   "notificationsLoadError": "حدث خطأ في تحميل الإشعارات",
+  "@notificationsLoadError": {"description": "Error message shown when notifications fail to load"},
+  "noNotifications": "لا توجد إشعارات",
+  "@noNotifications": {"description": "Message shown when there are no notifications"},
+  "justNow": "منذ لحظات",
+  "@justNow": {"description": "Relative time label for an event that happened moments ago"},
+  "yesterday": "أمس",
+  "@yesterday": {"description": "Relative time label for an event that happened yesterday"},
+  "minutesAgo": "{count, plural, zero{منذ لحظات} one{منذ دقيقة واحدة} two{منذ دقيقتين} few{منذ # دقائق} many{منذ # دقيقة} other{منذ # دقيقة}}",
+  "@minutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hoursAgo": "{count, plural, one{منذ ساعة واحدة} two{منذ ساعتين} few{منذ # ساعات} many{منذ # ساعة} other{منذ # ساعة}}",
+  "@hoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "daysAgo": "{count, plural, one{منذ يوم واحد} two{منذ يومين} few{منذ # أيام} many{منذ # يومًا} other{منذ # يوم}}",
+  "@daysAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+    "addNewAddress": "إضافة عنوان جديد",
+  "@addNewAddress": {"description": "Add new address action"},
+   "edit": "تعديل",
+  "@edit": {"description": "Edit action"},
+    "personalInformation": "البيانات الشخصية",
+  "@personalInformation": {"description": "Personal information section title"},
+  "enterFullName": "من فضلك أدخل الاسم",
+  "@enterFullName": {"description": "Full name input prompt"},
+  "saving": "جاري الحفظ...",
+  "@saving": {"description": "Saving status message"},
+  "saveChanges": "حفظ التعديلات",
+  "@saveChanges": {"description": "Save changes action"},
+  "profileUpdatedSuccessfully": "تم حفظ البيانات بنجاح",
+  "@profileUpdatedSuccessfully": {"description": "Profile update success message"},
+  "imagePickerError": "حدث خطأ أثناء اختيار الصورة: {error}",
+  "@imagePickerError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "profileNoData": "لا توجد بيانات للمستخدم",
+  "@profileNoData": {"description": "Message shown when user profile data is unavailable"}
+
+  
 }
 
 

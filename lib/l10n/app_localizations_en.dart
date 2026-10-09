@@ -307,4 +307,219 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get totalOrder => 'Total Order';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get editProfile => 'Edit Profile';
+
+  @override
+  String get myAddresses => 'My Addresses';
+
+  @override
+  String get help => 'Help';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get editAddress => 'Edit Address';
+
+  @override
+  String get addAddress => 'Add Address';
+
+  @override
+  String get addressName => 'Address Name';
+
+  @override
+  String get addressNameHint => 'e.g. Home';
+
+  @override
+  String get enterAddressName => 'Please enter the address name';
+
+  @override
+  String get addressType => 'Address Type';
+
+  @override
+  String get addressTypeHome => 'Home';
+
+  @override
+  String get addressTypeWork => 'Work';
+
+  @override
+  String get addressTypeOther => 'Other';
+
+  @override
+  String get detailedAddress => 'Full Address';
+
+  @override
+  String get detailedAddressHint => 'e.g. Dairut - Assiut';
+
+  @override
+  String get enterDetailedAddress => 'Please enter the address';
+
+  @override
+  String get savingAddress => 'Saving...';
+
+  @override
+  String get saveAddress => 'Save Address';
+
+  @override
+  String get addressUpdatedSuccessfully => 'Address updated successfully';
+
+  @override
+  String get addressAddedSuccessfully => 'Address added successfully';
+
+  @override
+  String get savedAddresses => 'Saved Addresses';
+
+  @override
+  String get addressesLoadError => 'An error occurred while loading addresses';
+
+  @override
+  String get noSavedAddresses => 'No saved addresses';
+
+  @override
+  String get deleteAddress => 'Delete Address';
+
+  @override
+  String get confirmDeleteAddress =>
+      'Are you sure you want to delete this address?';
+
+  @override
+  String get addressDeletedSuccessfully => 'Address deleted successfully';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get faqTitle => 'Frequently Asked Questions';
+
+  @override
+  String get faqCreateOrderQuestion => 'How do I create a new order?';
+
+  @override
+  String get faqCreateOrderAnswer =>
+      'Choose the service you need from the home page, enter the order details and address, then confirm your order.';
+
+  @override
+  String get faqTrackOrderQuestion => 'How can I track my order?';
+
+  @override
+  String get faqTrackOrderAnswer =>
+      'You can track your order status on the tracking page and view the latest updates about your order and driver.';
+
+  @override
+  String get faqEditProfileQuestion => 'How can I edit my account details?';
+
+  @override
+  String get faqEditProfileAnswer =>
+      'Go to My Account, select Edit Profile, update your information, and save your changes.';
+
+  @override
+  String get faqAddAddressQuestion => 'How can I add a new address?';
+
+  @override
+  String get faqAddAddressAnswer =>
+      'Go to My Account, select My Addresses, then tap Add Address.';
+
+  @override
+  String get faqOrderProblemQuestion =>
+      'What should I do if I have a problem with my order?';
+
+  @override
+  String get faqOrderProblemAnswer =>
+      'You can contact customer support using the contact options below.';
+
+  @override
+  String get contactUs => 'Contact Us';
+
+  @override
+  String get callUs => 'Call Us';
+
+  @override
+  String get supportWorkingHours => 'Available daily from 9 AM to 10 PM';
+
+  @override
+  String get chatWithSupport => 'Chat with Support';
+
+  @override
+  String get contactSupportDirectly => 'Contact our support team directly';
+
+  @override
+  String get notificationsLoadError =>
+      'An error occurred while loading notifications';
+
+  @override
+  String get noNotifications => 'No notifications';
+
+  @override
+  String get justNow => 'Just now';
+
+  @override
+  String get yesterday => 'Yesterday';
+
+  @override
+  String minutesAgo(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '# minutes ago',
+      one: '# minute ago',
+      zero: 'Just now',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String hoursAgo(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '# hours ago',
+      one: '# hour ago',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String daysAgo(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '# days ago',
+      one: '# day ago',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get addNewAddress => 'Add New Address';
+
+  @override
+  String get edit => 'Edit';
+
+  @override
+  String get personalInformation => 'Personal Information';
+
+  @override
+  String get enterFullName => 'Please enter your name';
+
+  @override
+  String get saving => 'Saving...';
+
+  @override
+  String get saveChanges => 'Save Changes';
+
+  @override
+  String get profileUpdatedSuccessfully => 'Profile updated successfully';
+
+  @override
+  String imagePickerError(String error) {
+    return 'An error occurred while selecting the image: $error';
+  }
+
+  @override
+  String get profileNoData => 'No user data available';
 }
