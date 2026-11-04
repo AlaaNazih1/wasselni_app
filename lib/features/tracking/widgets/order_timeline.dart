@@ -17,9 +17,10 @@ class OrderTimeline extends StatelessWidget {
   final dynamic inProgressAt;
   final dynamic deliveredAt;
 
-  bool get isReceived {
+ bool get isReceived {
     return status == 'pending' ||
         status == 'تم استلام الطلب' ||
+        status == 'accepted' ||
         status == 'inProgress' ||
         status == 'في الطريق' ||
         status == 'delivered' ||

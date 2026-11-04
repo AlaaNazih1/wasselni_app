@@ -37,7 +37,8 @@ class _TrackingViewState extends ConsumerState<TrackingView> {
       case 'cancelled':
       case 'ملغي':
         return l10n.statusCancelled;
-
+case 'accepted':
+        return 'تم قبول الطلب';
       default:
         return l10n.unknownStatus;
     }
@@ -60,7 +61,8 @@ class _TrackingViewState extends ConsumerState<TrackingView> {
       case 'cancelled':
       case 'ملغي':
         return AppColors.grey;
-
+case 'accepted':
+        return AppColors.orderInProgress;
       default:
         return AppColors.grey;
     }
