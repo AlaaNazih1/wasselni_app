@@ -125,11 +125,12 @@ class _CreateOrderViewState extends State<CreateOrderView> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => PriceDetailsView(
-                          from: fromController.text,
-                          to: toController.text,
-                          distance: 10,
-                          orderType: selectedOrderType,
-                        ),
+  from: fromController.text,
+  to: toController.text,
+  distance: 10,
+  orderType: selectedOrderType,
+  orderDetails: detailsController.text.trim(),
+),
                       ),
                     );
                   },

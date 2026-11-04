@@ -16,12 +16,14 @@ class PriceDetailsView extends StatefulWidget {
     required this.to,
     required this.distance,
     required this.orderType,
+    required this.orderDetails,
   });
 
   final String from;
   final String to;
   final double distance;
   final int orderType;
+  final String orderDetails;
 
   @override
   State<PriceDetailsView> createState() => _PriceDetailsViewState();
@@ -88,6 +90,7 @@ class _PriceDetailsViewState extends State<PriceDetailsView> {
         'driverId': '',
         'createdAt': FieldValue.serverTimestamp(),
         'updatedAt': FieldValue.serverTimestamp(),
+        'orderDetails': widget.orderDetails,
       });
 
       if (!mounted) return;
@@ -213,8 +216,7 @@ class _PriceDetailsViewState extends State<PriceDetailsView> {
 
             PriceRow(
               title: l10n.deliveryPrice,
-              value:
-                  '${deliveryPrice.toStringAsFixed(0)} ${l10n.currency}',
+              value: '${deliveryPrice.toStringAsFixed(0)} ${l10n.currency}',
             ),
 
             const SizedBox(height: 16),
@@ -222,8 +224,7 @@ class _PriceDetailsViewState extends State<PriceDetailsView> {
             PriceRow(
               title: l10n.additionalFees,
               subtitle: l10n.ifAny,
-              value:
-                  '${additionalFees.toStringAsFixed(0)} ${l10n.currency}',
+              value: '${additionalFees.toStringAsFixed(0)} ${l10n.currency}',
             ),
 
             const Padding(
@@ -249,4 +250,3 @@ class _PriceDetailsViewState extends State<PriceDetailsView> {
     );
   }
 }
-

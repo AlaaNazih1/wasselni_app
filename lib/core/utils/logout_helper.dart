@@ -68,7 +68,7 @@ class LogoutHelper {
     } catch (e) {
       if (!context.mounted) return;
 
-      final l10n = AppLocalizations.of(context)!;
+      final l10n = AppLocalizations.of(context);
 
       ScaffoldMessenger.of(
         context,
