@@ -91,6 +91,7 @@ class _PriceDetailsViewState extends State<PriceDetailsView> {
         'createdAt': FieldValue.serverTimestamp(),
         'updatedAt': FieldValue.serverTimestamp(),
         'orderDetails': widget.orderDetails,
+        'paymentMethod': 'cash_on_delivery',
       });
 
       if (!mounted) return;
